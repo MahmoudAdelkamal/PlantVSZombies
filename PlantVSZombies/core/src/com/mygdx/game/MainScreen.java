@@ -24,6 +24,8 @@ public class MainScreen implements Screen
     private float elapsed;
     private Character p;
     private Character plant;
+   	private final int coloumnPosition[]= {56,171,290,430,545 },rowPosition[]= {400,500,596,693,781,880,972,1067,1161};
+
     public MainScreen(MyGdxGame game)
     {
         this.game=game;
