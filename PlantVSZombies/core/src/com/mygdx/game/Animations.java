@@ -38,7 +38,7 @@ public class Animations
     private void CreateAnimation()
     {
         int index=0;
-        for(int i=0;i<RowFrames;i++)
+        for (int i=0;i<RowFrames;i++)
         {
             for(int j=0;j<columnFrames;j++)
             {
