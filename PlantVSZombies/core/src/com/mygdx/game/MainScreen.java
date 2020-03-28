@@ -1,98 +1,129 @@
 package com.mygdx.game;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.Input.Keys;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Array;
-public class MainScreen implements Screen 
-{
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class MainScreen implements Screen {
     private Texture sunflower;
     private Texture peashooter;
-    private Texture zombietexture;
     private MyGdxGame game;
+    private int wave=1;
     private float elapsed;
-    private Character p;
-    boolean x = false;
-    int count = 0;
-    private Character p1[] = new Character[100];
-    private Character plant;
-    private Character zombiechar;
+    boolean settingNewPlant=false;
+    ArrayList<Plant> plants;
+    ArrayList<Zombie> zombies;
+    private Plant  temporaryPlant;
 
-    private final int coloumnPosition[] = {56, 171, 290, 430, 545}, rowPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
+    public static final int rowPosition[] = {56, 171, 290, 430, 545}, columnPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
 
     public MainScreen(MyGdxGame game) {
         this.game = game;
-        p = new Character("peaSpriteSheet.png", 4, 6, 320, 250, 0.1f);
-        plant = new Character("sunflowersheet.png", 9, 6, 320, 350, 0.05f);
-        zombiechar = new Character("ConeZombie2.png", 10, 5, 1200, 300, 0.05f);
+        plants=new ArrayList<>();
+        zombies= new ArrayList<>();
         sunflower = new Texture("sunflower.png");
         peashooter = new Texture("PeashooterCard.png");
-        zombietexture = new Texture("ConeZombie2.png");
         elapsed = 0;
     }
+
     @Override
-    public void show(){
-        
+    public void show() {
+
     }
+
     @Override
-    public void render(float delta) {
+    public void render (float delta) {
         elapsed += delta;
+        if (elapsed>=wave*10){
+            wave++;
+            for (int i=0;i<5;i++){
+                Zombie newZombie= new Zombie("ConeZombie.png", 17, 3, 1200, rowPosition[i], 0.05f,3);
+                zombies.add(newZombie);
+            }
+
+        }
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
-        zombiechar.update(zombiechar.Getx()-0.5f,zombiechar.Gety());
-        game.batch.draw(game.img, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        game.batch.draw(game.img, 0, 0, 1254, 756);
         game.batch.draw(sunflower, 30, 600);
         game.batch.draw(peashooter, 30, 500, sunflower.getWidth(), sunflower.getHeight());
-        game.batch.draw((TextureRegion) p.DrawPlant().getKeyFrame(elapsed, true), p.Getx(), p.Gety());
-        game.batch.draw((TextureRegion) zombiechar.DrawPlant().getKeyFrame(elapsed, true), zombiechar.Getx(), zombiechar.Gety());
+        for (Zombie z:zombies) {
+            z.update(z.Getx() - 0.5f, z.Gety());
+            Iterator<Plant> it=plants.iterator();
+            while (it.hasNext()){
+                Plant p=it.next();
+                if ( p.GetXindex()==z.GetXindex() && p.GetYindex()==z.GetYindex() ){
+                    if (z.getCollision_time()==-1)
+                        z.setCollision_time(elapsed);
+                    p.colliding(elapsed);
+                    if (p.is_dead())
+                    {
+                        it.remove();
+                        z.setCollision_time(-1);
+                    }
 
-        if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
-
-            p1[count] = new Character("peaSpriteSheet.png", 4, 6, Gdx.input.getX() - 10, Gdx.graphics.getHeight() - Gdx.input.getY() - 10, 0.1f);
-            this.x = true;
-            count++;
-        }
-        if (x) {
-            for (int i = 0; i < count; i++) {
-                game.batch.draw((TextureRegion) p1[i].DrawPlant().getKeyFrame(elapsed, true), p1[i].Getx(), p1[i].Gety());
+                }
             }
+
+            game.batch.draw((TextureRegion) z.Draw().getKeyFrame(elapsed, true), z.Getx(), z.Gety());
         }
 
-        game.batch.draw((TextureRegion) plant.DrawPlant().getKeyFrame(elapsed, true), plant.Getx(), plant.Gety());
+
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
+            settingNewPlant = !settingNewPlant;
+        }
+        if (settingNewPlant) {
+            temporaryPlant= new Plant("PeaSpriteSheet.png", 4, 6, columnPosition[0], rowPosition[0], 0.1f);
+            temporaryPlant.update(Gdx.input.getX(),756-Gdx.input.getY());
+            temporaryPlant.update(columnPosition[temporaryPlant.GetXindex()],rowPosition[temporaryPlant.GetYindex()]);
+            game.batch.setColor(Color.GRAY);
+            game.batch.draw((TextureRegion) temporaryPlant.Draw().getKeyFrame(elapsed, true), temporaryPlant.Getx(), temporaryPlant.Gety());
+            game.batch.setColor(Color.WHITE);
+
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                plants.add(temporaryPlant);
+            }
+
+        }
+        for (GameObject p:plants){
+            game.batch.draw((TextureRegion) p.Draw().getKeyFrame(elapsed, true), p.Getx(), p.Gety());
+        }
+
         game.batch.end();
     }
+
     @Override
     public void resize(int width, int height) {
-        
+
     }
+
     @Override
     public void pause() {
-        
+
     }
+
     @Override
     public void resume() {
-       
+
     }
+
     @Override
     public void hide() {
-      
+
     }
+
     @Override
     public void dispose() {
-       
+
     }
+
+
 }
