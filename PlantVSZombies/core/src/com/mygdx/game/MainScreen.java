@@ -19,10 +19,10 @@ public class MainScreen implements Screen {
     private int wave=1;
     private float elapsed;
     boolean settingNewPlant=false;
-    ArrayList<Plant> plants;
-    ArrayList<Zombie> zombies;
+    private ArrayList<Plant> plants;
+    private ArrayList<Zombie> zombies;
     private Plant  temporaryPlant;
-    Random rand = new Random();
+    private Random rand = new Random();
     public static final int rowPosition[] = {56, 171, 290, 430, 545}, columnPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
 
     public MainScreen(MyGdxGame game) {
