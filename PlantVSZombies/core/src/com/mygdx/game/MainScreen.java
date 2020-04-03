@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 public class MainScreen implements Screen {
     private Texture sunflower;
@@ -21,7 +22,7 @@ public class MainScreen implements Screen {
     ArrayList<Plant> plants;
     ArrayList<Zombie> zombies;
     private Plant  temporaryPlant;
-
+    Random rand = new Random();
     public static final int rowPosition[] = {56, 171, 290, 430, 545}, columnPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
 
     public MainScreen(MyGdxGame game) {
@@ -44,7 +45,7 @@ public class MainScreen implements Screen {
         if (elapsed>=wave*10){
             wave++;
             for (int i=0;i<5;i++){
-                Zombie newZombie= new Zombie("ConeZombie.png", 17, 3, 1200, rowPosition[i], 0.05f,3);
+                Zombie newZombie= new Zombie("ConeZombie.png", 17, 3, 1200, rowPosition[i], 0.03f,(float)(0.2+rand.nextFloat()%.5));
                 zombies.add(newZombie);
             }
 
@@ -56,7 +57,7 @@ public class MainScreen implements Screen {
         game.batch.draw(sunflower, 30, 600);
         game.batch.draw(peashooter, 30, 500, sunflower.getWidth(), sunflower.getHeight());
         for (Zombie z:zombies) {
-            z.update(z.Getx() - 0.5f, z.Gety());
+            z.update(z.Getx() - z.getSpeed(), z.Gety());
             Iterator<Plant> it=plants.iterator();
             while (it.hasNext()){
                 Plant p=it.next();
