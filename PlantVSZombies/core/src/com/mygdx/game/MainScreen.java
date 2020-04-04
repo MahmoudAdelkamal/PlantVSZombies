@@ -30,7 +30,7 @@ public class MainScreen implements Screen {
         plants=new ArrayList<>();
         zombies= new ArrayList<>();
         sunflower = new Texture("sunflower.png");
-        peashooter = new Texture("PeashooterCard.png");
+        peashooter = new Texture("peashooterCard.png");
         elapsed = 0;
     }
 
