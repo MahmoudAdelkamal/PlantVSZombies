@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 public class MainScreen implements Screen
 {
@@ -17,9 +18,10 @@ public class MainScreen implements Screen
     private int wave=1;
     private float elapsed;
     boolean settingNewPlant=false;
-    ArrayList<Plant> plants;
-    ArrayList<Zombie> zombies;
+    private ArrayList<Plant> plants;
+    private ArrayList<Zombie> zombies;
     private Plant  temporaryPlant;
+    private Random rand = new Random();
     public static final int rowPosition[] = {56, 171, 290, 430, 545}, columnPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
     public MainScreen(MyGdxGame game) 
     {
@@ -27,7 +29,7 @@ public class MainScreen implements Screen
         plants=new ArrayList<Plant>();
         zombies= new ArrayList<Zombie>();
         sunflower = new Texture("sunflower.png");
-        peashooter = new Texture("PeashooterCard.png");
+        peashooter = new Texture("peashooterCard.png");
         elapsed = 0;
     }
     @Override
@@ -41,7 +43,7 @@ public class MainScreen implements Screen
         if (elapsed>=wave*10){
             wave++;
             for (int i=0;i<5;i++){
-                Zombie newZombie= new Zombie(Constants.WalkingConeZombiePath,Constants.WalkingConeZombieRows,Constants.WalkingConeZombieColumns, 1200, rowPosition[i],0.1f,2);
+                Zombie newZombie= new Zombie(Constants.WalkingConeZombiePath,Constants.WalkingConeZombieRows,Constants.WalkingConeZombieColumns, 1200, rowPosition[i],0.1f,(float)0.5);
                 zombies.add(newZombie);
             }
         }
@@ -52,6 +54,34 @@ public class MainScreen implements Screen
         game.batch.draw(sunflower, 30, 600);
         game.batch.draw(peashooter, 30, 500, sunflower.getWidth(), sunflower.getHeight());
         HandleCollision();
+
+        for (Zombie z:zombies) {
+            z.update(z.Getx() - z.getSpeed(), z.Gety());
+            Iterator<Plant> it=plants.iterator();
+            while (it.hasNext()){
+                Plant p=it.next();
+                if(p.GetXindex()==z.GetXindex() && p.Getx()-25==z.Getx() && p.GetYindex()==z.GetYindex())
+                {
+                    if (z.GetCollisionTime()==-1)
+                    {
+                        z.SetCollisionTime(elapsed);
+                        z.SetState(false,true);
+                        z.UpdateAnimation();
+                    }
+                        p.colliding(elapsed);
+                    if (p.IsDead())
+                    {
+                        it.remove();
+                        z.SetCollisionTime(-1);
+                        z.SetState(true,false);
+                        z.UpdateAnimation();
+                    }
+
+                }
+            }
+
+            game.batch.draw((TextureRegion) z.Draw().getKeyFrame(elapsed, true), z.Getx(), z.Gety());
+        }
         if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
             settingNewPlant = !settingNewPlant;
         }
