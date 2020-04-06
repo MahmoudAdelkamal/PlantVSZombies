@@ -2,19 +2,20 @@ package com.mygdx.game;
 
 public class Plant extends GameObject {
 
-
-    public Plant(String path, int Rows, int columns, float x, float y, float FrameTime) {
+    public Plant(String path, int Rows, int columns, float x, float y, float FrameTime) 
+    {
         super(path, Rows, columns, x, y, FrameTime);
     }
-
     @Override
-    public void colliding(float elapsed) {
-        if (collision_time==-1)
-            collision_time=elapsed;
-        else if (elapsed-getCollision_time()>=1)
-            hp--;
+    public void colliding(float elapsed) 
+    {
+        if(CollisionTime==-1)
+            CollisionTime=elapsed;
+        else if(elapsed-GetCollisionTime()>=1)
+            HealthPoints--;
     }
-    public boolean is_dead(){
-        return (hp==0);
+    public boolean IsDead()
+    {
+        return(HealthPoints==0);
     }
 }

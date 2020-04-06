@@ -2,19 +2,23 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-public abstract class GameObject {
+public abstract class GameObject
+{
     protected Animations animation;
     protected Texture texture;
     protected float x;
     protected float y;
-    protected int hp=5;
-    protected float collision_time=-1;
+    protected int HealthPoints;
+    protected float CollisionTime;
 
-    public GameObject(String path,int Rows,int columns,float x,float y,float FrameTime) {
-       texture=new Texture(path);
-       animation=new Animations(path,Rows,columns,FrameTime);
-       this.x=x;
-       this.y=y;
+    public GameObject(String path,int Rows,int columns,float x,float y,float FrameTime)
+    {
+            texture=new Texture(path);
+            animation=new Animations(path,Rows,columns,FrameTime);
+            HealthPoints=5;
+            CollisionTime=-1;
+            this.x=x;
+            this.y=y;
     }
     public Animation Draw()
     {
@@ -33,30 +37,32 @@ public abstract class GameObject {
     {
         return y;
     }
-    public void setCollision_time(float collision_time) {
-        this.collision_time = collision_time;
+    public void SetCollisionTime(float CollisionTime)
+    {
+        this.CollisionTime=CollisionTime;
     }
-
-    public float getCollision_time() {
-        return collision_time;
+    public float GetCollisionTime()
+    {
+        return CollisionTime;
     }
-
-    public int getHp() {
-        return hp;
+    public void SetHealthPoints(int HealthPoints)
+    {
+        this.HealthPoints = HealthPoints;
     }
-
-    public void setHp(int hp) {
-        this.hp = hp;
+    public int GetHealthPoints()
+    {
+        return HealthPoints;
     }
     public abstract void colliding(float elapsed);
-
-    public int GetXindex(){
+    public int GetXindex()
+    {
         int index=0;
         while (index < 8 && MainScreen.columnPosition[index + 1] < x)
             index++;
         return index;
     }
-    public int GetYindex(){
+    public int GetYindex()
+    {
         int index=0;
         while (index < 4 && MainScreen.rowPosition[index + 1] <= y)
             index++;
