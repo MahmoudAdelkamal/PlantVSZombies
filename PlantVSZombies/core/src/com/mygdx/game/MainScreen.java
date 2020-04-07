@@ -54,34 +54,6 @@ public class MainScreen implements Screen
         game.batch.draw(sunflower, 30, 600);
         game.batch.draw(peashooter, 30, 500, sunflower.getWidth(), sunflower.getHeight());
         HandleCollision();
-
-        for (Zombie z:zombies) {
-            z.update(z.Getx() - z.getSpeed(), z.Gety());
-            Iterator<Plant> it=plants.iterator();
-            while (it.hasNext()){
-                Plant p=it.next();
-                if(p.GetXindex()==z.GetXindex() && p.Getx()-25==z.Getx() && p.GetYindex()==z.GetYindex())
-                {
-                    if (z.GetCollisionTime()==-1)
-                    {
-                        z.SetCollisionTime(elapsed);
-                        z.SetState(false,true);
-                        z.UpdateAnimation();
-                    }
-                        p.colliding(elapsed);
-                    if (p.IsDead())
-                    {
-                        it.remove();
-                        z.SetCollisionTime(-1);
-                        z.SetState(true,false);
-                        z.UpdateAnimation();
-                    }
-
-                }
-            }
-
-            game.batch.draw((TextureRegion) z.Draw().getKeyFrame(elapsed, true), z.Getx(), z.Gety());
-        }
         if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
             settingNewPlant = !settingNewPlant;
         }
