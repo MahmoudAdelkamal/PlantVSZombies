@@ -36,7 +36,6 @@ public class MainScreen implements Screen
     public void show() {
 
     }
-
     @Override
     public void render (float delta) {
         elapsed += delta;
@@ -76,6 +75,7 @@ public class MainScreen implements Screen
 
         game.batch.end();
     }
+    // Handling collision between zombies and peashooters
     private void HandleCollision()
     {
         for (Zombie z:zombies)
