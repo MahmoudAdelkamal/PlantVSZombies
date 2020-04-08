@@ -5,16 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 public abstract class GameObject
 {
     protected Animations animation;
-    protected Texture texture;
     protected float x;
     protected float y;
     protected int HealthPoints;
     protected float CollisionTime;
-
-    public GameObject(String path,int Rows,int columns,float x,float y,float FrameTime)
+    public GameObject(float x,float y)
     {
-            texture=new Texture(path);
-            animation=new Animations(path,Rows,columns,FrameTime);
             HealthPoints=5;
             CollisionTime=-1;
             this.x=x;

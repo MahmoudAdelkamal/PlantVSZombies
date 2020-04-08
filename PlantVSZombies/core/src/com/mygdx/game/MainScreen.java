@@ -42,7 +42,7 @@ public class MainScreen implements Screen
         if (elapsed>=wave*10){
             wave++;
             for (int i=0;i<5;i++){
-                Zombie newZombie= new Zombie(Constants.WalkingConeZombiePath,Constants.WalkingConeZombieRows,Constants.WalkingConeZombieColumns, 1200, rowPosition[i],0.1f,(float)0.5);
+                Zombie newZombie= new Zombie(1200,rowPosition[i],1);
                 zombies.add(newZombie);
             }
         }
@@ -57,7 +57,7 @@ public class MainScreen implements Screen
             settingNewPlant = !settingNewPlant;
         }
         if (settingNewPlant) {
-            temporaryPlant= new Plant(Constants.PeaShooterSheetPath,Constants.PeaShooterSheetRows,Constants.PeaShooterSheetColumns,columnPosition[0], rowPosition[0], 0.1f);
+            temporaryPlant= new Plant(columnPosition[0], rowPosition[0]);
             temporaryPlant.update(Gdx.input.getX(),756-Gdx.input.getY());
             temporaryPlant.update(columnPosition[temporaryPlant.GetXindex()],rowPosition[temporaryPlant.GetYindex()]);
             game.batch.setColor(Color.GRAY);

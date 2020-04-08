@@ -1,10 +1,11 @@
 package com.mygdx.game;
 
-public class Plant extends GameObject {
-
-    public Plant(String path, int Rows, int columns, float x, float y, float FrameTime) 
+public class Plant extends GameObject
+{
+    public Plant(float x, float y) 
     {
-        super(path, Rows, columns, x, y, FrameTime);
+        super(x,y);
+        animation=new Animations(Constants.PeaShooterSheetPath,Constants.PeaShooterSheetRows,Constants.PeaShooterSheetColumns,0.1f);
     }
     @Override
     public void colliding(float elapsed) 

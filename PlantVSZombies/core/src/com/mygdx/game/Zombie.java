@@ -7,20 +7,25 @@ public class Zombie extends GameObject
     private boolean IsEating;
     private Animations WalkingAnimation;
     private Animations EatingAnimation;
-    public Zombie(String path, int Rows, int columns, float x, float y, float FrameTime, float speed)
+    public Zombie(float x, float y, float speed)
     {
-        super(path, Rows, columns, x, y, FrameTime);
+        super(x,y);
         this.speed = speed;
         IsWalking = true;
         IsEating = false;
         WalkingAnimation=new Animations(Constants.WalkingConeZombiePath,Constants.WalkingConeZombieRows,Constants.WalkingConeZombieColumns,0.1f);
         EatingAnimation=new Animations(Constants.EatingConeZombiePath,Constants.EatingConeZombieRows,Constants.EatingConeZombieColumns,0.1f);
+        InitialAnimation();
     }
     @Override
     public void update(float x, float y) 
     {
         if (CollisionTime==-1)
             super.update(x,y);
+    }
+    public void InitialAnimation()
+    {
+        animation=WalkingAnimation;
     }
     public void UpdateAnimation()
     {
