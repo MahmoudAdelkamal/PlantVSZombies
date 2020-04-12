@@ -20,6 +20,7 @@ public class MainScreen implements Screen
     boolean settingNewPlant=false;
     private ArrayList<Plant> plants;
     private ArrayList<Zombie> zombies;
+    private ArrayList<LawnMower>Mowers;
     private Plant  temporaryPlant;
     private Random rand = new Random();
     public static final int rowPosition[] = {56, 171, 290, 430, 545}, columnPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
@@ -28,23 +29,24 @@ public class MainScreen implements Screen
         this.game = game;
         plants=new ArrayList<Plant>();
         zombies= new ArrayList<Zombie>();
+        Mowers = new ArrayList<LawnMower>();
         sunflower = new Texture("sunflower.png");
         peashooter = new Texture("peashooterCard.png");
         elapsed = 0;
+        LoadMowers();
     }
     @Override
     public void show() {
 
     }
     @Override
-    public void render (float delta) {
+    public void render (float delta) 
+    {
         elapsed += delta;
-        if (elapsed>=wave*10){
+        if (elapsed>=wave*10)
+        {
             wave++;
-            for (int i=0;i<5;i++){
-                Zombie newZombie= new Zombie(1200,rowPosition[i],1);
-                zombies.add(newZombie);
-            }
+            LoadZombies();
         }
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -56,7 +58,13 @@ public class MainScreen implements Screen
         if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
             settingNewPlant = !settingNewPlant;
         }
-        if (settingNewPlant) {
+        for(int i=0;i<Mowers.size();i++)
+        {
+            Mowers.get(i).Draw(game.batch,elapsed,Mowers.get(i).Getx(),Mowers.get(i).Gety());
+        }
+        HandleMowers();
+        if (settingNewPlant) 
+        {
             temporaryPlant= new Plant(columnPosition[0], rowPosition[0]);
             temporaryPlant.update(Gdx.input.getX(),756-Gdx.input.getY());
             temporaryPlant.update(columnPosition[temporaryPlant.GetXindex()],rowPosition[temporaryPlant.GetYindex()]);
@@ -69,10 +77,11 @@ public class MainScreen implements Screen
                 plants.add(temporaryPlant);
             }
         }
-        for (GameObject p:plants){
+        for (GameObject p:plants)
+        {
             game.batch.draw((TextureRegion) p.Draw().getKeyFrame(elapsed, true), p.Getx(), p.Gety());
         }
-
+        
         game.batch.end();
     }
     // Handling collision between zombies and peashooters
@@ -80,12 +89,12 @@ public class MainScreen implements Screen
     {
         for (Zombie z:zombies)
         {
-            z.update(z.Getx() - 0.5f, z.Gety());
+            z.update(z.Getx() - 1.6f, z.Gety());
             Iterator<Plant>it=plants.iterator();
             while(it.hasNext())
             {
                 Plant p=it.next();
-                if(p.GetXindex()==z.GetXindex() && p.Getx()-25==z.Getx() && p.GetYindex()==z.GetYindex())
+                if(p.GetXindex()==z.GetXindex() && p.GetYindex()==z.GetYindex())
                 {
                       if(z.GetCollisionTime()==-1)
                       {
@@ -104,6 +113,48 @@ public class MainScreen implements Screen
                 }
             }
             game.batch.draw((TextureRegion) z.Draw().getKeyFrame(elapsed, true), z.Getx(), z.Gety());
+        }
+    }
+    private void LoadZombies()
+    {
+        for(int i=0;i<5;i++)
+        {
+                Zombie newZombie = new Zombie(1200,rowPosition[i],1);
+                zombies.add(newZombie);
+            
+        }
+    }
+    private void LoadMowers()
+    {
+        for(int i=0;i<5;i++)
+        {
+            Mowers.add(new LawnMower(Constants.x,rowPosition[i]));
+        }
+    }
+    public void HandleMowers()
+    {
+        for(int i=0;i<Mowers.size();i++)
+        {
+            Mowers.get(i).CheckZombies(zombies);
+        }
+        for(int i=0;i<Mowers.size();i++)
+        {
+            if(Mowers.get(i).CanMove())
+            {
+                Mowers.get(i).Attack(zombies);
+                Mowers.get(i).move();
+            }
+        }
+        DeleteMowers();
+    }
+    private void DeleteMowers()
+    {
+        Iterator<LawnMower>it=Mowers.iterator();
+        while(it.hasNext())
+        {
+           LawnMower mower = it.next();
+           if(mower.isSetToDestroy())
+               it.remove();
         }
     }
     @Override
@@ -127,8 +178,9 @@ public class MainScreen implements Screen
     }
 
     @Override
-    public void dispose() {
-
+    public void dispose() 
+    {
+        
     }
 
 

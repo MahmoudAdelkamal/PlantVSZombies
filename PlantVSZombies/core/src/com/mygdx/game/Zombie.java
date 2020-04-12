@@ -1,4 +1,12 @@
 package com.mygdx.game;
+import java.util.ArrayList;
+import java.util.Iterator;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Zombie extends GameObject
 {
@@ -25,7 +33,7 @@ public class Zombie extends GameObject
     }
     public void InitialAnimation()
     {
-        animation=WalkingAnimation;
+        animation = WalkingAnimation;
     }
     public void UpdateAnimation()
     {
@@ -53,7 +61,7 @@ public class Zombie extends GameObject
     private enum State
     {
         Walking,
-        Eating
+        Eating,
     }
     @Override
     public void colliding(float elapsed)

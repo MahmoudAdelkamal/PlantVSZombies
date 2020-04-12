@@ -50,6 +50,7 @@ public abstract class GameObject
         return HealthPoints;
     }
     public abstract void colliding(float elapsed);
+    
     public int GetXindex()
     {
         int index=0;
