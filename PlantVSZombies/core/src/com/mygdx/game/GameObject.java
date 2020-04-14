@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 public abstract class GameObject
 {
     protected Animations animation;
+    protected Texture texture;
     protected float x;
     protected float y;
     protected int HealthPoints;
@@ -25,6 +26,7 @@ public abstract class GameObject
         this.x=x;
         this.y=y;
     }
+
     public float Getx()
     {
         return x;
@@ -50,7 +52,15 @@ public abstract class GameObject
         return HealthPoints;
     }
     public abstract void colliding(float elapsed);
-    
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
+
     public int GetXindex()
     {
         int index=0;
