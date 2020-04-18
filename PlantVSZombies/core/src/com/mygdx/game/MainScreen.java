@@ -55,7 +55,6 @@ public class MainScreen implements Screen {
             wave++;
             LoadZombies();
         }
-
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
@@ -64,20 +63,7 @@ public class MainScreen implements Screen {
         game.batch.draw(peashooter, 30, 500, sunflower.getWidth(), sunflower.getHeight());
         game.batch.draw(star.getTexture(), star.Getx(), star.Gety());
         star.update(star.Getx(), star.Gety() - 0.5f);
-        // Handle touching a falling Star
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            Vector2 tmp = new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-            Rectangle textureBounds = new Rectangle(star.Getx(), star.Gety(), star.getTexture().getWidth(), star.getTexture().getHeight());
-            //System.out.println(tmp.x + " " + tmp.y + " " + star.Getx() + " " + star.Gety());
-            if (textureBounds.contains(tmp.x, tmp.y)) {
-                // you are touching the star Update the score now because there is on score var now
-
-                star.update(columnPosition[randint.nextInt(8)], 1250);
-            }
-        }
-        if (star.Gety() < 0)
-            star.update(columnPosition[randint.nextInt(8)], 1250);
-
+        HandleSun();
         HandleCollision();
         if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
             settingNewPlant = !settingNewPlant;
@@ -133,7 +119,7 @@ public class MainScreen implements Screen {
 
     private void LoadZombies() {
         for (int i = 0; i < 5; i++) {
-            Zombie newZombie = new Zombie(1200, rowPosition[i], 0.2f + (0.4f - 0.2f) * rand.nextFloat());
+            Zombie newZombie = new Zombie(1200, rowPosition[i], 0.6f + (0.4f - 0.2f) * rand.nextFloat());
             zombies.add(newZombie);
 
         }
@@ -144,7 +130,16 @@ public class MainScreen implements Screen {
             Mowers.add(new LawnMower(Constants.x, rowPosition[i]));
         }
     }
-
+    private void HandleSun()
+    {
+        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) 
+        {
+            if(star.IsTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()))
+                star.update(columnPosition[randint.nextInt(8)], 1250);
+        }
+        if(star.Gety()<0)
+            star.update(columnPosition[randint.nextInt(8)], 1250);
+    }
     public void HandleMowers() {
         for (int i = 0; i < Mowers.size(); i++) {
             Mowers.get(i).CheckZombies(zombies);
@@ -157,7 +152,6 @@ public class MainScreen implements Screen {
         }
         DeleteMowers();
     }
-
     private void DeleteMowers() {
         Iterator<LawnMower> it = Mowers.iterator();
         while (it.hasNext()) {
