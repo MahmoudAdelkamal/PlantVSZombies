@@ -5,18 +5,13 @@ public class Plant extends GameObject
     public Plant(float x, float y) 
     {
         super(x,y);
-        animation=new Animations(Constants.PeaShooterSheetPath,Constants.PeaShooterSheetRows,Constants.PeaShooterSheetColumns,0.1f);
     }
     @Override
-    public void colliding(float elapsed) 
+    public void collide(float elapsed)
     {
-        if(CollisionTime==-1)
+        if(CollisionTime==0)
             CollisionTime=elapsed;
         else if(elapsed-GetCollisionTime()>=1)
-            HealthPoints--;
-    }
-    public boolean IsDead()
-    {
-        return(HealthPoints==0);
+            setHealthPoints(getHealthPoints() - 1);
     }
 }

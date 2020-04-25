@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class LawnMower extends GameObject 
+public class LawnMower extends GameObject
 {
     private boolean IsSetToDestroy;
     private boolean MoveAble;
@@ -47,13 +47,15 @@ public class LawnMower extends GameObject
     }
     private void UpdateAnimation()
     {
-       animation = new Animations(Constants.MovingLawnMowerPath,Constants.MovingLawnMowerRows,Constants.MovingLawnMowerColumns,0.1f);     
+       animation = new Animations(Constants.MovingLawnMowerPath,Constants.MovingLawnMowerRows,Constants.MovingLawnMowerColumns,0.1f);
     }
     public void move()
     {
-         update(x+5,y);
-         if(x>1250)
-             IsSetToDestroy=true;
+        if(MoveAble){
+            update(x+5,y);
+            if(x>1250)
+                IsSetToDestroy=true;
+        }
     }
     public boolean isSetToDestroy()
     {
@@ -68,8 +70,8 @@ public class LawnMower extends GameObject
         batch.draw((TextureRegion)Draw().getKeyFrame(elapsed,true),x,y);
     }
     @Override
-    public void colliding(float elapsed) 
+    public void collide(float elapsed)
     {
-        
+        MoveAble=true;
     }
 }

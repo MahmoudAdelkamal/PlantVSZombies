@@ -8,12 +8,16 @@ public abstract class GameObject
     protected Texture texture;
     protected float x;
     protected float y;
-    protected int HealthPoints;
+    private int HealthPoints;
+    protected boolean isColliding;
+
     protected float CollisionTime;
+
     public GameObject(float x,float y)
     {
-            HealthPoints=5;
-            CollisionTime=-1;
+            setColliding(false);
+            setHealthPoints(5);
+            CollisionTime=0;
             this.x=x;
             this.y=y;
     }
@@ -26,7 +30,6 @@ public abstract class GameObject
         this.x=x;
         this.y=y;
     }
-
     public float Getx()
     {
         return x;
@@ -45,13 +48,13 @@ public abstract class GameObject
     }
     public void SetHealthPoints(int HealthPoints)
     {
-        this.HealthPoints = HealthPoints;
+        this.setHealthPoints(HealthPoints);
     }
     public int GetHealthPoints()
     {
-        return HealthPoints;
+        return getHealthPoints();
     }
-    public abstract void colliding(float elapsed);
+    public abstract void collide(float elapsed);
 
     public Texture getTexture() {
         return texture;
@@ -74,5 +77,25 @@ public abstract class GameObject
         while (index < 4 && MainScreen.rowPosition[index + 1] <= y)
             index++;
         return index;
+    }
+
+    public boolean isColliding() {
+        return isColliding;
+    }
+
+    public void setColliding(boolean colliding) {
+        isColliding = colliding;
+    }
+    public boolean IsDead()
+    {
+        return(getHealthPoints() ==0);
+    }
+
+    public int getHealthPoints() {
+        return HealthPoints;
+    }
+
+    public void setHealthPoints(int healthPoints) {
+        HealthPoints = healthPoints;
     }
 }
