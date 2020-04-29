@@ -38,4 +38,7 @@ public class Animations
     {
         return animation;
     }
+    public int getFrameWidth(){
+        return texture.getWidth()/columnFrames;
+    }
 }

@@ -98,4 +98,7 @@ public abstract class GameObject
     public void setHealthPoints(int healthPoints) {
         HealthPoints = healthPoints;
     }
+    public int getFrameWidth(){
+        return animation.getFrameWidth();
+    }
 }

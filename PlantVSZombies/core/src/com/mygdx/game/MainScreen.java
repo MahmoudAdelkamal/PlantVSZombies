@@ -16,8 +16,8 @@ import java.util.Random;
 
 public class MainScreen implements Screen
 {
-    private Texture sunflower;
-    private Texture peashooter;
+    private Card sunflower;
+    private Card peashooter;
     private Sun star;
     private MyGdxGame game;
     private int wave = 1;
@@ -35,8 +35,8 @@ public class MainScreen implements Screen
         plants = new ArrayList<Plant>();
         zombies = new ArrayList<Zombie>();
         Mowers = new ArrayList<LawnMower>();
-        sunflower = new Texture("sunflower.png");
-        peashooter = new Texture("peashooterCard.png");
+        sunflower = new Card(30f,600f,"sunflower.png");
+        peashooter = new Card(30f,500f,"peashooterCard.png");
         star = new Sun(columnPosition[2], 1250);
         star.setTexture(new Texture("star.png"));
         elapsed = 0;
@@ -61,10 +61,16 @@ public class MainScreen implements Screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.batch.draw(game.img, 0, 0, 1254, 756);
-        game.batch.draw(sunflower, 30, 600);
-        game.batch.draw(peashooter, 30, 500, sunflower.getWidth(), sunflower.getHeight());
+        game.batch.draw(sunflower.getTexture(), sunflower.getX(), sunflower.getY(),105,67 );
+        game.batch.draw(peashooter.getTexture(), peashooter.getX(), peashooter.getY(),105,67);
         game.batch.draw(star.getTexture(), star.Getx(), star.Gety());
         star.update(star.Getx(), star.Gety() - 0.5f);
+
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && sunflower.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()))
+            System.out.println("SunFlower");
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && peashooter.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()))
+            System.out.println("PeaShooter");
+
 
         // Setting Plants
         SetNewPlant();
@@ -138,8 +144,8 @@ public class MainScreen implements Screen
                     if (gameObject instanceof PeaShooter) {
                         PeaShooting((Zombie) z,(PeaShooter) gameObject);
                     }
-
-                    if(gameObject.GetXindex()==z.GetXindex())
+                   // System.out.println(z.Getx()+"     "+(gameObject.Getx()+gameObject.getFrameWidth()) );
+                    if(Math.abs(z.Getx()-(gameObject.Getx()+5))<=3)
                     {
                         gameObject.setColliding(true);
                         gameObject.collide(elapsed);
@@ -161,6 +167,7 @@ public class MainScreen implements Screen
                         ZombieIterator.remove();
                         gameObject.SetCollisionTime(0);
                         gameObject.setColliding(false);
+                        break;
                     }
                 }
 
@@ -174,7 +181,7 @@ public class MainScreen implements Screen
         while (bulletIterator.hasNext())
         {
             Bullet bu=bulletIterator.next();
-            if (zombie.Getx() - bu.Getx() <1)
+            if (Math.abs(zombie.Getx() - bu.Getx()) <=2)
             {
                 bulletIterator.remove();
                 zombie.isHit();
@@ -198,13 +205,22 @@ public class MainScreen implements Screen
 
     private void SetNewPlant()
     {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
-           if (temporaryPlant==null)
-                temporaryPlant=new PeaShooter(0,0);
-            else
-                temporaryPlant=null;
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            if (peashooter.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY())) {
+                if (temporaryPlant==null)
+                    temporaryPlant=new PeaShooter(0,0);
+                else
+                    temporaryPlant=null;
+
+            }
+            /*else if (sunflower.isTouched((Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()))){
+                if (temporaryPlant==null)
+                    temporaryPlant=new (0,0);
+                else
+                    temporaryPlant=null;
+            }*/
         }
-        if (temporaryPlant!=null)
+        if (temporaryPlant!=null && Gdx.input.getX()>columnPosition[0] && Gdx.input.getY()>rowPosition[0])
         {
             temporaryPlant.update(Gdx.input.getX(),756-Gdx.input.getY());
             temporaryPlant.update(columnPosition[temporaryPlant.GetXindex()],rowPosition[temporaryPlant.GetYindex()]);
