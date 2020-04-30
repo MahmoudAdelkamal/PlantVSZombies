@@ -19,40 +19,16 @@ public class LawnMower extends GameObject
         IsSetToDestroy=false;
         animation = new Animations(Constants.StaticLawnMowerPath,Constants.StaticLawnMowerRows,Constants.StaticLawnMowerColumns,0.1f);
     }
-    public void CheckZombies(ArrayList<Zombie>zombies)
-    {
-        Iterator<Zombie>it=zombies.iterator();
-        while(it.hasNext())
-        {
-           Zombie zombie = it.next();
-           if(this.GetXindex()==zombie.GetXindex() && this.GetYindex()==zombie.GetYindex())
-           {
-               UpdateAnimation();
-               MoveAble=true;
-               break;
-           }
-        }
-    }
-    public void Attack(ArrayList<Zombie>zombies)
-    {
-        Iterator<Zombie>it=zombies.iterator();
-        while(it.hasNext())
-        {
-           Zombie zombie = it.next();
-           if(this.GetXindex()==zombie.GetXindex() && this.GetYindex()==zombie.GetYindex())
-           {
-               it.remove();
-           }
-        }
-    }
     private void UpdateAnimation()
     {
        animation = new Animations(Constants.MovingLawnMowerPath,Constants.MovingLawnMowerRows,Constants.MovingLawnMowerColumns,0.1f);
     }
     public void move()
     {
-        if(MoveAble){
+        if(MoveAble)
+        {
             update(x+5,y);
+            UpdateAnimation();
             if(x>1250)
                 IsSetToDestroy=true;
         }
@@ -60,10 +36,6 @@ public class LawnMower extends GameObject
     public boolean isSetToDestroy()
     {
         return IsSetToDestroy;
-    }
-    public boolean CanMove()
-    {
-        return MoveAble;
     }
     public void Draw(SpriteBatch batch,float elapsed,float x,float y)
     {

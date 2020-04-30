@@ -17,7 +17,7 @@ public class PeaShooter extends Plant {
     public void shoot(float elapsed) {
         if (shootTime==0)
             shootTime=elapsed;
-        else if (elapsed-shootTime>1.2f)
+        else if (elapsed-shootTime>1.5f)
         {
             bullet.add(new Bullet(x+35,y+40,5));
             shootTime=0;

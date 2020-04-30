@@ -22,7 +22,7 @@ public class Zombie extends GameObject
 
     public void isHit()
     {
-            setHealthPoints(getHealthPoints() - 1);
+       HealthPoints--;
     }
     public void UpdateAnimation()
     {

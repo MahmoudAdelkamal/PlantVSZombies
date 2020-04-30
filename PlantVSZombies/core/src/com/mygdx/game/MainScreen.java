@@ -16,16 +16,19 @@ public class MainScreen implements Screen
 {
     private Card sunflowerCard;
     private Card peashooterCard;
-    private Sun star;
     private MyGdxGame game;
     private int wave = 1;
     private float elapsed;
     private ArrayList<Plant> plants;
     private ArrayList<Zombie> zombies;
     private ArrayList<LawnMower> Mowers;
+    private ArrayList<Sun>stars;
     private Plant temporaryPlant;
-    private Random rand = new Random(), randint=new Random();
-    public static final int rowPosition[] = {56, 171, 290, 430, 545}, columnPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
+    private int score = 0 ;
+    private Random rand = new Random();
+    private Random randint=new Random();
+    public static final int rowPosition[] = {56, 171, 290, 430, 545};
+    public static final int columnPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
     public MainScreen(MyGdxGame game)
     {
         this.game = game;
@@ -33,10 +36,9 @@ public class MainScreen implements Screen
         plants = new ArrayList<Plant>();
         zombies = new ArrayList<Zombie>();
         Mowers = new ArrayList<LawnMower>();
+        stars = new ArrayList<Sun>();
         sunflowerCard = new Card(30f,600f,"sunflower.png");
         peashooterCard = new Card(30f,500f,"peashooterCard.png");
-        star = new Sun(columnPosition[2], 1250);
-        star.setTexture(new Texture("star.png"));
         elapsed = 0;
         LoadMowers();
     }
@@ -53,6 +55,7 @@ public class MainScreen implements Screen
         {
             wave++;
             LoadZombies();
+            LoadStars();
         }
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -60,11 +63,10 @@ public class MainScreen implements Screen
         game.batch.draw(game.img, 0, 0, 1254, 756);
         game.batch.draw(sunflowerCard.getTexture(), sunflowerCard.getX(), sunflowerCard.getY(),105,67 );
         game.batch.draw(peashooterCard.getTexture(), peashooterCard.getX(), peashooterCard.getY(),105,67);
-        game.batch.draw(star.getTexture(), star.Getx(), star.Gety());
-        star.update(star.Getx(), star.Gety() - 0.5f);
         SetNewPlant();
         HandleZombies();
         HandlePlants();
+        HandleStars();
         HandleMowers();
         game.batch.end();
     }
@@ -83,13 +85,11 @@ public class MainScreen implements Screen
             {
                 GameObject gameObject=ObjectIterator.next();
 
-                if (gameObject.GetYindex()==z.GetYindex()){
-
+                if (gameObject.GetYindex()==z.GetYindex())
+                {
                     if (gameObject instanceof PeaShooter) 
-                    {
                         PeaShooting((Zombie) z,(PeaShooter) gameObject);
-                    }
-                    if(Math.abs(z.Getx()-(gameObject.Getx()+5))<=2)
+                    if(gameObject.GetXindex()==z.GetXindex())
                     {
                         gameObject.setColliding(true);
                         gameObject.collide(elapsed);
@@ -99,7 +99,8 @@ public class MainScreen implements Screen
                         {
                             z.setColliding(true);
                             z.collide(elapsed);
-                            if (gameObject.IsDead()) {
+                            if(gameObject.IsDead())
+                            {
                                 ObjectIterator.remove();
                                 z.SetCollisionTime(0);
                                 z.setColliding(false);
@@ -117,25 +118,31 @@ public class MainScreen implements Screen
             }
         }
     }
-    private void PeaShooting(Zombie zombie , PeaShooter peaShooter )
+    private void PeaShooting(Zombie zombie , PeaShooter peaShooter)
     {
         peaShooter.shoot(elapsed);
-        Iterator<Bullet> bulletIterator=peaShooter.getBullet().iterator();
+        Iterator<Bullet>bulletIterator=peaShooter.getBullet().iterator();
         while (bulletIterator.hasNext())
         {
             Bullet bu=bulletIterator.next();
-            if(bu.Getx()>=zombie.Getx()+60)
+            if(bu.Getx()>=zombie.Getx()+50)
             {
                 bulletIterator.remove();
                 zombie.isHit();
             }
         }
     }
+    private void LoadStars()
+    {
+        Sun star = new Sun(columnPosition[new Random().nextInt(9)],1250);
+        star.setTexture(new Texture("star.png"));
+        stars.add(star);
+    }
     private void LoadZombies() 
     {
         for (int i = 0; i < 5; i++)
         {
-            Zombie newZombie = new Zombie(1200, rowPosition[i], 0.8f + (0.4f - 0.2f) * rand.nextFloat());
+            Zombie newZombie = new Zombie(1200, rowPosition[i], 0.5f + (0.4f - 0.2f) * rand.nextFloat());
             zombies.add(newZombie);
         }
     }
@@ -146,6 +153,26 @@ public class MainScreen implements Screen
             Mowers.add(new LawnMower(Constants.x, rowPosition[i]));
         }
     }
+    private void HandleStars()
+    {
+        for(int i=0;i<stars.size();i++)
+        {
+            if(stars.get(i).Gety()>=620)
+                stars.get(i).update(stars.get(i).Getx(),stars.get(i).Gety()-0.5f);
+        }
+        Iterator<Sun>it=stars.iterator();
+        while(it.hasNext())
+        {
+            Sun star=it.next();
+            game.batch.draw(star.getTexture(),star.Getx(),star.Gety());
+            System.out.println(score);
+            if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && star.IsTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()))
+            {
+                score++;
+                it.remove();
+            }
+        }
+    }
     private void HandleMowers()
     {
         Iterator<LawnMower> it=Mowers.iterator();
@@ -154,7 +181,7 @@ public class MainScreen implements Screen
             LawnMower mower=it.next();
             if (mower.isSetToDestroy())
                 it.remove();
-            mower.move();
+            mower.move();    
             mower.Draw(game.batch, elapsed, mower.Getx(), mower.Gety());
         }
     }
@@ -181,8 +208,6 @@ public class MainScreen implements Screen
                     Bullet bu=bulletIterator.next();
                     game.batch.draw((TextureRegion) bu.Draw().getKeyFrame(elapsed, true), bu.Getx(), bu.Gety());
                     bu.move();
-                    if(bu.Getx() > 1200)
-                        bulletIterator.remove();
                 }
             }
         }
@@ -195,7 +220,6 @@ public class MainScreen implements Screen
                     temporaryPlant=new PeaShooter(0,0);
                 else
                     temporaryPlant=null;
-
             }
         }
         if (temporaryPlant!=null && Gdx.input.getX()>columnPosition[0] && Gdx.input.getY()>rowPosition[0])

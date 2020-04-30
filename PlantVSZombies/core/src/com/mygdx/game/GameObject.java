@@ -8,9 +8,8 @@ public abstract class GameObject
     protected Texture texture;
     protected float x;
     protected float y;
-    private int HealthPoints;
+    protected int HealthPoints;
     protected boolean isColliding;
-
     protected float CollisionTime;
 
     public GameObject(float x,float y)
