@@ -1,5 +1,4 @@
-package com.mygdx.game;
-
+package GameObjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -9,6 +8,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import GameObjects.*;
+import GameObjects.Bullet;
+import GameObjects.Card;
+import GameObjects.Constants;
+import GameObjects.GameObject;
+import GameObjects.LawnMower;
+import GameObjects.PlantsvsZombies;
+import GameObjects.PeaShooter;
+import GameObjects.Plant;
+import GameObjects.Sun;
+import GameObjects.Zombie;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -16,29 +26,26 @@ public class MainScreen implements Screen
 {
     private Card sunflowerCard;
     private Card peashooterCard;
-    private MyGdxGame game;
-    private int wave = 1;
+    private PlantsvsZombies game;
+    private int wave;
     private float elapsed;
+    private Plant PlacedPlant;
     private ArrayList<Plant> plants;
-    private ArrayList<Zombie> zombies;
+    private ArrayList<Zombie>zombies;
     private ArrayList<LawnMower> Mowers;
     private ArrayList<Sun>stars;
-    private Plant temporaryPlant;
     private int score = 0 ;
-    private Random rand = new Random();
-    private Random randint=new Random();
-    public static final int rowPosition[] = {56, 171, 290, 430, 545};
-    public static final int columnPosition[] = {400, 500, 596, 693, 781, 880, 972, 1067, 1161};
-    public MainScreen(MyGdxGame game)
+    public MainScreen(PlantsvsZombies game)
     {
         this.game = game;
-        temporaryPlant=null;
+        wave = 1;
         plants = new ArrayList<Plant>();
         zombies = new ArrayList<Zombie>();
         Mowers = new ArrayList<LawnMower>();
         stars = new ArrayList<Sun>();
-        sunflowerCard = new Card(30f,600f,"sunflower.png");
-        peashooterCard = new Card(30f,500f,"peashooterCard.png");
+        PlacedPlant = null;
+        sunflowerCard = new Card(30,600,"sunflower.png");
+        peashooterCard = new Card(30,500,"peashooterCard.png");
         elapsed = 0;
         LoadMowers();
     }
@@ -51,13 +58,13 @@ public class MainScreen implements Screen
     public void render(float delta)
     {
         elapsed += delta;
-        if(elapsed >= wave * 10)
+        if(elapsed >= wave*10)
         {
             wave++;
             LoadZombies();
             LoadStars();
         }
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(1,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.batch.draw(game.img, 0, 0, 1254, 756);
@@ -77,10 +84,8 @@ public class MainScreen implements Screen
         {
             GameObject z=ZombieIterator.next();
             Iterator<GameObject> ObjectIterator=object.iterator();
-
             if (plants.isEmpty() || (!object.isEmpty() && object.get(0) instanceof Plant) )
                 z.setColliding(false);
-
             while(ObjectIterator.hasNext())
             {
                 GameObject gameObject=ObjectIterator.next();
@@ -118,14 +123,14 @@ public class MainScreen implements Screen
             }
         }
     }
-    private void PeaShooting(Zombie zombie , PeaShooter peaShooter)
+    private void PeaShooting(Zombie zombie,PeaShooter peaShooter)
     {
         peaShooter.shoot(elapsed);
         Iterator<Bullet>bulletIterator=peaShooter.getBullet().iterator();
-        while (bulletIterator.hasNext())
+        while(bulletIterator.hasNext())
         {
-            Bullet bu=bulletIterator.next();
-            if(bu.Getx()>=zombie.Getx()+50)
+            Bullet bullet = bulletIterator.next();
+            if(zombie.Getx()+60<=bullet.Getx() && zombie.GetXindex()+1==bullet.GetXindex())
             {
                 bulletIterator.remove();
                 zombie.isHit();
@@ -134,15 +139,15 @@ public class MainScreen implements Screen
     }
     private void LoadStars()
     {
-        Sun star = new Sun(columnPosition[new Random().nextInt(9)],1250);
+        Sun star = new Sun(Constants.columnPosition[new Random().nextInt(9)],1250);
         star.setTexture(new Texture("star.png"));
         stars.add(star);
     }
     private void LoadZombies() 
     {
-        for (int i = 0; i < 5; i++)
+        for(int i=0;i<5;i++)
         {
-            Zombie newZombie = new Zombie(1200, rowPosition[i], 0.5f + (0.4f - 0.2f) * rand.nextFloat());
+            ConeZombie newZombie = new ConeZombie(1170, Constants.rowPosition[i], 0.3f + (0.4f - 0.2f) * new Random().nextFloat());
             zombies.add(newZombie);
         }
     }
@@ -150,7 +155,7 @@ public class MainScreen implements Screen
     {
         for (int i = 0; i < 5; i++)
         {
-            Mowers.add(new LawnMower(Constants.x, rowPosition[i]));
+            Mowers.add(new LawnMower(Constants.x, Constants.rowPosition[i]));
         }
     }
     private void HandleStars()
@@ -165,13 +170,13 @@ public class MainScreen implements Screen
         {
             Sun star=it.next();
             game.batch.draw(star.getTexture(),star.Getx(),star.Gety());
-            System.out.println(score);
-            if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && star.IsTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()))
+            if((Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && star.IsTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY())))
             {
                 score++;
                 it.remove();
             }
         }
+        System.out.println(score);
     }
     private void HandleMowers()
     {
@@ -192,6 +197,8 @@ public class MainScreen implements Screen
         for(Zombie z:zombies)
         {
             z.update(z.Getx() - z.getSpeed() , z.Gety());
+            if(z.Getx()<=265)
+                game.Gameover();
             game.batch.draw((TextureRegion) z.Draw().getKeyFrame(elapsed, true), z.Getx(), z.Gety());
         }
     }
@@ -205,38 +212,47 @@ public class MainScreen implements Screen
                 Iterator<Bullet> bulletIterator=((PeaShooter) p).getBullet().iterator();
                 while (bulletIterator.hasNext())
                 {
-                    Bullet bu=bulletIterator.next();
-                    game.batch.draw((TextureRegion) bu.Draw().getKeyFrame(elapsed, true), bu.Getx(), bu.Gety());
-                    bu.move();
+                    Bullet bullet=bulletIterator.next();
+                    game.batch.draw((TextureRegion) bullet.Draw().getKeyFrame(elapsed,true), bullet.Getx(), bullet.Gety());
+                    bullet.move();
+                    if(bullet.Getx() > Gdx.graphics.getWidth())
+                        bulletIterator.remove();
+                }
+            }
+            else if(p instanceof SunFlower)
+            {
+                ((SunFlower)p).UpdateTime();
+                if(((SunFlower)p).CanProduceSun() && !stars.contains(((SunFlower)p).GetSun()))
+                {
+                     stars.add(((SunFlower)p).GetSun());
+                     ((SunFlower)p).Reset();
                 }
             }
         }
     }
     private void SetNewPlant()
     {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            if (peashooterCard.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY())) {
-                if (temporaryPlant==null)
-                    temporaryPlant=new PeaShooter(0,0);
-                else
-                    temporaryPlant=null;
-            }
-        }
-        if (temporaryPlant!=null && Gdx.input.getX()>columnPosition[0] && Gdx.input.getY()>rowPosition[0])
+        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
         {
-            temporaryPlant.update(Gdx.input.getX(),756-Gdx.input.getY());
-            temporaryPlant.update(columnPosition[temporaryPlant.GetXindex()],rowPosition[temporaryPlant.GetYindex()]);
+            if(peashooterCard.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()) && PlacedPlant==null)
+                PlacedPlant=new PeaShooter(0,0);
+            if(sunflowerCard.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()) && PlacedPlant==null)
+                PlacedPlant=new SunFlower(0,0);
+        }
+        if(PlacedPlant!=null && Gdx.input.getX()>Constants.columnPosition[0] && Gdx.input.getY()>Constants.rowPosition[0])
+        {
+            PlacedPlant.update(Gdx.input.getX(),756-Gdx.input.getY());
+            PlacedPlant.update(Constants.columnPosition[PlacedPlant.GetXindex()],Constants.rowPosition[PlacedPlant.GetYindex()]);
             game.batch.setColor(Color.GRAY);
-            game.batch.draw((TextureRegion) temporaryPlant.Draw().getKeyFrame(elapsed, true), temporaryPlant.Getx(), temporaryPlant.Gety());
+            game.batch.draw((TextureRegion) PlacedPlant.Draw().getKeyFrame(elapsed, true), PlacedPlant.Getx(), PlacedPlant.Gety());
             game.batch.setColor(Color.WHITE);
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
             {
-                plants.add(temporaryPlant);
-                temporaryPlant=null;
+                plants.add(PlacedPlant);
+                PlacedPlant=null;
             }
         }
     }
-
     @Override
     public void resize(int width, int height) {
 

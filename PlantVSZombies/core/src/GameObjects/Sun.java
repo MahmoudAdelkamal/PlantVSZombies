@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package GameObjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
@@ -8,7 +8,7 @@ public class Sun extends GameObject
 {
     public Sun(float x,float y)
     {
-        super(x, y);
+        super(x,y);
         animation = new Animations(Constants.SunSheetPath,1,1,0.1f);
     }
     public boolean IsTouched(int x,int height,int y)
@@ -18,7 +18,8 @@ public class Sun extends GameObject
         return(textureBounds.contains(tmp.x,tmp.y));
     }
     @Override
-    public void collide(float elapsed) {
+    public void collide(float elapsed)
+    {
 
     }
 }

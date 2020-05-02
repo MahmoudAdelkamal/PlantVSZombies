@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package GameObjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -11,7 +11,6 @@ public abstract class GameObject
     protected int HealthPoints;
     protected boolean isColliding;
     protected float CollisionTime;
-
     public GameObject(float x,float y)
     {
             setColliding(false);
@@ -66,38 +65,40 @@ public abstract class GameObject
     public int GetXindex()
     {
         int index=0;
-        while (index < 8 && MainScreen.columnPosition[index + 1] < x)
+        while (index < 8 && Constants.columnPosition[index + 1] < x)
             index++;
         return index;
     }
     public int GetYindex()
     {
         int index=0;
-        while (index < 4 && MainScreen.rowPosition[index + 1] <= y)
+        while (index < 4 && Constants.rowPosition[index + 1] <= y)
             index++;
         return index;
     }
-
-    public boolean isColliding() {
+    public boolean isColliding()
+    {
         return isColliding;
     }
 
-    public void setColliding(boolean colliding) {
+    public void setColliding(boolean colliding) 
+    {
         isColliding = colliding;
     }
     public boolean IsDead()
     {
         return(getHealthPoints() ==0);
     }
-
-    public int getHealthPoints() {
+    public int getHealthPoints()
+    {
         return HealthPoints;
     }
-
-    public void setHealthPoints(int healthPoints) {
+    public void setHealthPoints(int healthPoints)
+    {
         HealthPoints = healthPoints;
     }
-    public int getFrameWidth(){
+    public int getFrameWidth()
+    {
         return animation.getFrameWidth();
     }
 }

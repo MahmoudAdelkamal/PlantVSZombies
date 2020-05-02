@@ -1,20 +1,20 @@
-package com.mygdx.game;
+package GameObjects;
 
 import java.util.ArrayList;
 
-public class PeaShooter extends Plant {
-
+public class PeaShooter extends Plant
+{
     private ArrayList<Bullet> bullet;
     private float shootTime;
-
-    public PeaShooter(float x, float y) {
-        super(x, y);
+    public PeaShooter(float x, float y)
+    {
+        super(x,y);
         animation=new Animations(Constants.PeaShooterSheetPath,Constants.PeaShooterSheetRows,Constants.PeaShooterSheetColumns,0.1f);
         bullet= new ArrayList<Bullet>();
         shootTime=0;
     }
-
-    public void shoot(float elapsed) {
+    public void shoot(float elapsed)
+    {
         if (shootTime==0)
             shootTime=elapsed;
         else if (elapsed-shootTime>1.5f)
@@ -23,12 +23,8 @@ public class PeaShooter extends Plant {
             shootTime=0;
         }
     }
-
-    public ArrayList<Bullet> getBullet() {
+    public ArrayList<Bullet>getBullet()
+    {
         return bullet;
-    }
-
-    public void setBullet(ArrayList<Bullet> bullet) {
-        this.bullet = bullet;
     }
 }

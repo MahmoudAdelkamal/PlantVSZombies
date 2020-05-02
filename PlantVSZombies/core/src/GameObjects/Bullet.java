@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package GameObjects;
 
 
 public class Bullet extends GameObject{

@@ -1,17 +1,14 @@
-package com.mygdx.game;
+package GameObjects;
 
 public class Zombie extends GameObject
 {
-    private float speed;
-    private Animations WalkingAnimation;
-    private Animations EatingAnimation;
+    protected float speed;
+    protected Animations WalkingAnimation;
+    protected Animations EatingAnimation;
     public Zombie(float x, float y, float speed)
     {
         super(x,y);
         this.speed = speed;
-        WalkingAnimation=new Animations(Constants.WalkingConeZombiePath,Constants.WalkingConeZombieRows,Constants.WalkingConeZombieColumns,0.1f);
-        EatingAnimation=new Animations(Constants.EatingConeZombiePath,Constants.EatingConeZombieRows,Constants.EatingConeZombieColumns,0.1f);
-        animation = WalkingAnimation;
     }
     @Override
     public void update(float x, float y) 
@@ -35,8 +32,6 @@ public class Zombie extends GameObject
     {
         return speed;
     }
-
-
     @Override
     public void collide(float elapsed)
     {
@@ -48,9 +43,9 @@ public class Zombie extends GameObject
     }
 
     @Override
-    public void setColliding(boolean colliding) {
+    public void setColliding(boolean colliding)
+    {
         super.setColliding(colliding);
         UpdateAnimation();
     }
-
 }

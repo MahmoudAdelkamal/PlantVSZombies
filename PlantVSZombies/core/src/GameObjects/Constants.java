@@ -1,13 +1,20 @@
-package com.mygdx.game;
+package GameObjects;
 public class Constants
 {
+    // the Game map constants
+    public static final int rowPosition[]={56,171,290,430,545};
+    public static final int columnPosition[]={400,500,596,693,781,880,972,1067,1161};
     // sun
     public static final String SunSheetPath="star.png";
+    // sunFlower
+    public static final String SunFlowerSheetPath = "sunflowersheet.png";
+    public static final int SunFlowerRows = 9;
+    public static final int SunFlowerColumns = 6;
     ///Pea shooter
     public static final int PeaShooterSheetRows = 4;
     public static final int PeaShooterSheetColumns = 6;
     public static final String PeaShooterSheetPath = "PeaSpriteSheet.png";
-    //Pea (Bullet)
+    // Bullet
     public static final String BulletPath="Pea.png";
     // Cone Zombie
     public static final int WalkingConeZombieRows = 7;

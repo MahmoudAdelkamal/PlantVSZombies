@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package GameObjects;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.badlogic.gdx.*;
