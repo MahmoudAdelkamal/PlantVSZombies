@@ -19,11 +19,14 @@ import GameObjects.PeaShooter;
 import GameObjects.Plant;
 import GameObjects.Sun;
 import GameObjects.Zombie;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 public class MainScreen implements Screen
 {
+    private Texture SunScore;
+    private BitmapFont SunScorefont;
     private Card sunflowerCard;
     private Card peashooterCard;
     private PlantsvsZombies game;
@@ -34,18 +37,23 @@ public class MainScreen implements Screen
     private ArrayList<Zombie>zombies;
     private ArrayList<LawnMower> Mowers;
     private ArrayList<Sun>stars;
-    private int score = 0 ;
+    private int score ;
     public MainScreen(PlantsvsZombies game)
     {
         this.game = game;
+        SunScorefont = new BitmapFont(Gdx.files.internal("Font.fnt"));
+        SunScorefont.setColor(Color.WHITE);
+        SunScorefont.getData().setScale(2.6f,3.4f);
         wave = 1;
+        score = 50;
+        SunScore = new Texture("star.png");
         plants = new ArrayList<Plant>();
         zombies = new ArrayList<Zombie>();
         Mowers = new ArrayList<LawnMower>();
         stars = new ArrayList<Sun>();
         PlacedPlant = null;
-        sunflowerCard = new Card(30,600,"sunflower.png");
-        peashooterCard = new Card(30,500,"peashooterCard.png");
+        sunflowerCard = new Card(30,550,"sunflower.png");
+        peashooterCard = new Card(30,450,"peashooterCard.png");
         elapsed = 0;
         LoadMowers();
     }
@@ -58,16 +66,18 @@ public class MainScreen implements Screen
     public void render(float delta)
     {
         elapsed += delta;
-        if(elapsed >= wave*10)
+        if(elapsed >= wave*40)
         {
             wave++;
             LoadZombies();
             LoadStars();
         }
-        Gdx.gl.glClearColor(1,0,0,1);
+        Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.batch.draw(game.img, 0, 0, 1254, 756);
+        SunScorefont.draw(game.batch,Integer.toString(score),100,700);
+        game.batch.draw(SunScore,10,640);
         game.batch.draw(sunflowerCard.getTexture(), sunflowerCard.getX(), sunflowerCard.getY(),105,67 );
         game.batch.draw(peashooterCard.getTexture(), peashooterCard.getX(), peashooterCard.getY(),105,67);
         SetNewPlant();
@@ -125,6 +135,7 @@ public class MainScreen implements Screen
     }
     private void PeaShooting(Zombie zombie,PeaShooter peaShooter)
     {
+        
         peaShooter.shoot(elapsed);
         Iterator<Bullet>bulletIterator=peaShooter.getBullet().iterator();
         while(bulletIterator.hasNext())
@@ -145,9 +156,9 @@ public class MainScreen implements Screen
     }
     private void LoadZombies() 
     {
-        for(int i=0;i<5;i++)
+        for(int i=1;i<4;i++)
         {
-            ConeZombie newZombie = new ConeZombie(1170, Constants.rowPosition[i], 0.3f + (0.4f - 0.2f) * new Random().nextFloat());
+            ConeZombie newZombie = new ConeZombie(1170, Constants.rowPosition[i], 0.1f + (0.4f - 0.2f) * new Random().nextFloat());
             zombies.add(newZombie);
         }
     }
@@ -172,7 +183,7 @@ public class MainScreen implements Screen
             game.batch.draw(star.getTexture(),star.Getx(),star.Gety());
             if((Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && star.IsTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY())))
             {
-                score++;
+                score+=25;
                 it.remove();
             }
         }
@@ -234,10 +245,16 @@ public class MainScreen implements Screen
     {
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
         {
-            if(peashooterCard.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()) && PlacedPlant==null)
+            if(peashooterCard.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()) && PlacedPlant==null && score>=100)
+            {
+                score-=100;
                 PlacedPlant=new PeaShooter(0,0);
-            if(sunflowerCard.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()) && PlacedPlant==null)
+            }
+            if(sunflowerCard.isTouched(Gdx.input.getX(),Gdx.graphics.getHeight(),Gdx.input.getY()) && PlacedPlant==null && score>=50)
+            {
+                score-=50;
                 PlacedPlant=new SunFlower(0,0);
+            }
         }
         if(PlacedPlant!=null && Gdx.input.getX()>Constants.columnPosition[0] && Gdx.input.getY()>Constants.rowPosition[0])
         {
