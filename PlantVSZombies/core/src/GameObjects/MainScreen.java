@@ -225,7 +225,7 @@ public class MainScreen implements Screen
                 if(((SunFlower)p).CanProduceSun() && !stars.contains(((SunFlower)p).GetSun()))
                 {
                      stars.add(((SunFlower)p).GetSun());
-                     ((SunFlower)p).Reset();
+                     ((SunFlower)p).ResetSun();
                 }
             }
         }

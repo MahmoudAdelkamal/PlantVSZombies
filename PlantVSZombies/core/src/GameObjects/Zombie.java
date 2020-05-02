@@ -1,5 +1,4 @@
 package GameObjects;
-
 public class Zombie extends GameObject
 {
     protected float speed;
