@@ -66,7 +66,7 @@ public class MainScreen implements Screen
     public void render(float delta)
     {
         elapsed += delta;
-        if(elapsed >= wave*40)
+        if(elapsed >= wave*25)
         {
             wave++;
             LoadZombies();
@@ -158,7 +158,7 @@ public class MainScreen implements Screen
     {
         for(int i=1;i<4;i++)
         {
-            ConeZombie newZombie = new ConeZombie(1170, Constants.rowPosition[i], 0.1f + (0.4f - 0.2f) * new Random().nextFloat());
+            NormalZombie newZombie = new NormalZombie(1170, Constants.rowPosition[i], 0.2f + (0.4f - 0.2f) * new Random().nextFloat());
             zombies.add(newZombie);
         }
     }
@@ -187,7 +187,6 @@ public class MainScreen implements Screen
                 it.remove();
             }
         }
-        //System.out.println(score);
     }
     private void HandleMowers()
     {

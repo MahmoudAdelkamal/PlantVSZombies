@@ -16,6 +16,13 @@ public class Constants
     public static final String PeaShooterSheetPath = "PeaSpriteSheet.png";
     // Bullet
     public static final String BulletPath="Pea.png";
+    // Normal Zombie
+    public static final String WalkingNormalZombiePath = "NormalZombieSheet.png";
+    public static final int WalkingNormalZombieRows = 2;
+    public static final int WalkingNormalZombieColumns = 11;
+    public static final String EatingNormalZombiePath = "NormalZombieAttacking.png";
+    public static final int EatingNormalZombieRows = 1;
+    public static final int EatingNormalZombieColumns = 21;
     // Cone Zombie
     public static final int WalkingConeZombieRows = 7;
     public static final int WalkingConeZombieColumns = 3;

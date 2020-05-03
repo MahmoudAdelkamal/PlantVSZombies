@@ -14,12 +14,12 @@ public class Animations
     private TextureRegion[][]temporaryFrames;
     public Animations(String TexturePath,int RowFrames,int columnFrames,float FrameTime)
     {
-        texture=new Texture(TexturePath);
-        temporaryFrames=TextureRegion.split(texture,(int)texture.getWidth()/columnFrames,(int)texture.getHeight()/RowFrames);
-        animatedFrames=new TextureRegion[RowFrames*columnFrames];
-        this.rowFrames =RowFrames;
-        this.columnFrames=columnFrames;
-        this.FrameTime=FrameTime;
+        texture = new Texture(TexturePath);
+        temporaryFrames = TextureRegion.split(texture,(int)texture.getWidth()/columnFrames,(int)texture.getHeight()/RowFrames);
+        animatedFrames = new TextureRegion[RowFrames*columnFrames];
+        this.rowFrames = RowFrames;
+        this.columnFrames = columnFrames;
+        this.FrameTime = FrameTime;
         CreateAnimation();
     }
     private void CreateAnimation()
@@ -38,7 +38,8 @@ public class Animations
     {
         return animation;
     }
-    public int getFrameWidth(){
+    public int getFrameWidth()
+    {
         return texture.getWidth()/columnFrames;
     }
 }
