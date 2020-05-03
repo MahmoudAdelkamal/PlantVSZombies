@@ -17,6 +17,7 @@ public class Sun extends GameObject
         Rectangle textureBounds = new Rectangle(this.Getx(),this.Gety(),this.getTexture().getWidth(),this.getTexture().getHeight());
         return(textureBounds.contains(tmp.x,tmp.y));
     }
+    
     @Override
     public void collide(float elapsed)
     {

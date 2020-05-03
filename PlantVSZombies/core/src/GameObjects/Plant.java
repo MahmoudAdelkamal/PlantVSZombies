@@ -2,6 +2,7 @@ package GameObjects;
 
 public abstract class Plant extends GameObject
 {
+
     public Plant(float x, float y) 
     {
         super(x,y);
