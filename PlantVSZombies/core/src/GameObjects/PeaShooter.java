@@ -22,7 +22,7 @@ public class PeaShooter extends Plant
             shootTime=elapsed;
         else if (elapsed-shootTime>1.5f)
         {
-            bullet.add(new Bullet(x+35,y+40,5));
+            bullet.add(new Bullet(x+35,y+40,9));
             shootTime=0;
         }
     }

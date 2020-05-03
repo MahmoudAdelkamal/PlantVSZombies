@@ -1,13 +1,14 @@
-package GameObjects;
+package Screens;
+import GameObjects.PlantsvsZombies;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-public class GameOver implements Screen 
+public class GameOverScreen implements Screen 
 {
     private PlantsvsZombies game;
     public Texture GameOverScreen;
-    public GameOver(PlantsvsZombies game)
+    public GameOverScreen(PlantsvsZombies game)
     {
         this.game=game;
         GameOverScreen = new Texture("ZombiesAteYourBrains.png");

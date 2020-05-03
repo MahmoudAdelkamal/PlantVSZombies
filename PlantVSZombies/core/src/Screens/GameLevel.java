@@ -1,4 +1,4 @@
-package GameObjects;
+package Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -9,21 +9,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import GameObjects.*;
-import GameObjects.Bullet;
-import GameObjects.Card;
-import GameObjects.Constants;
-import GameObjects.GameObject;
-import GameObjects.LawnMower;
-import GameObjects.PlantsvsZombies;
-import GameObjects.PeaShooter;
-import GameObjects.Plant;
-import GameObjects.Sun;
-import GameObjects.Zombie;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-public class MainScreen implements Screen
+public class GameLevel implements Screen
 {
     private Texture SunScore;
     private BitmapFont SunScorefont;
@@ -38,7 +28,7 @@ public class MainScreen implements Screen
     private ArrayList<LawnMower> Mowers;
     private ArrayList<Sun>stars;
     private int score ;
-    public MainScreen(PlantsvsZombies game)
+    public GameLevel(PlantsvsZombies game)
     {
         this.game = game;
         SunScorefont = new BitmapFont(Gdx.files.internal("Font.fnt"));
@@ -235,7 +225,8 @@ public class MainScreen implements Screen
             }
             else if(p instanceof SunFlower)
             {
-                ((SunFlower)p).UpdateTime();
+                if(!stars.contains(((SunFlower)p).GetSun()))
+                    ((SunFlower)p).UpdateTime();
                 if(((SunFlower)p).CanProduceSun() && !stars.contains(((SunFlower)p).GetSun()))
                 {
                      stars.add(((SunFlower)p).GetSun());

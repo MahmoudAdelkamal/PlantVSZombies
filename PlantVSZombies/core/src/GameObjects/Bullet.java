@@ -19,10 +19,10 @@ public class Bullet extends GameObject{
     }
 
     @Override
-    void setRectangle() {
+    public void setRectangle()
+    {
         rectangle=new Rectangle(x,y,20,20);
     }
-
     @Override
     public void collide(float elapsed) {
 

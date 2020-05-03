@@ -23,7 +23,7 @@ public abstract class GameObject
             this.x=x;
             this.y=y;
     }
-     void setRectangle(){
+     public void setRectangle(){
 
      };
 

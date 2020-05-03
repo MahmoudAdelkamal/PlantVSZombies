@@ -19,7 +19,8 @@ public class SunFlower extends Plant
     }
 
     @Override
-    void setRectangle() {
+    public void setRectangle()
+    {
         rectangle= new Rectangle(x,y,45,62);
     }
 
