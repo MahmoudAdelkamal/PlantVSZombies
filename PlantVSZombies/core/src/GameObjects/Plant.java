@@ -1,6 +1,6 @@
 package GameObjects;
 
-public class Plant extends GameObject
+public abstract class Plant extends GameObject
 {
     public Plant(float x, float y) 
     {

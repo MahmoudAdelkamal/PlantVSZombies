@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 public class LawnMower extends GameObject
 {
@@ -18,6 +19,7 @@ public class LawnMower extends GameObject
         MoveAble=false;
         IsSetToDestroy=false;
         animation = new Animations(Constants.StaticLawnMowerPath,Constants.StaticLawnMowerRows,Constants.StaticLawnMowerColumns,0.1f);
+        setRectangle();
     }
     private void UpdateAnimation()
     {
@@ -45,5 +47,9 @@ public class LawnMower extends GameObject
     public void collide(float elapsed)
     {
         MoveAble=true;
+    }
+    public void setRectangle()
+    {
+        rectangle= new Rectangle(this.x,this.y,80,63);
     }
 }

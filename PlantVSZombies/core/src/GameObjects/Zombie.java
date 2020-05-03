@@ -1,5 +1,5 @@
 package GameObjects;
-public class Zombie extends GameObject
+public abstract class Zombie extends GameObject
 {
     protected float speed;
     protected Animations WalkingAnimation;

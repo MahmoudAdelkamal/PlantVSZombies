@@ -1,5 +1,7 @@
 package GameObjects;
 
+import com.badlogic.gdx.math.Rectangle;
+
 import java.util.ArrayList;
 
 public class PeaShooter extends Plant
@@ -12,6 +14,7 @@ public class PeaShooter extends Plant
         animation=new Animations(Constants.PeaShooterSheetPath,Constants.PeaShooterSheetRows,Constants.PeaShooterSheetColumns,0.1f);
         bullet= new ArrayList<Bullet>();
         shootTime=0;
+        setRectangle();
     }
     public void shoot(float elapsed)
     {
@@ -26,5 +29,9 @@ public class PeaShooter extends Plant
     public ArrayList<Bullet>getBullet()
     {
         return bullet;
+    }
+    public void setRectangle()
+    {
+        rectangle= new Rectangle(this.x,this.y,48,63);
     }
 }

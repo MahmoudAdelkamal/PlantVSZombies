@@ -2,6 +2,9 @@ package GameObjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.math.Rectangle;
+
+
 public abstract class GameObject
 {
     protected Animations animation;
@@ -11,6 +14,7 @@ public abstract class GameObject
     protected int HealthPoints;
     protected boolean isColliding;
     protected float CollisionTime;
+    protected Rectangle rectangle;
     public GameObject(float x,float y)
     {
             setColliding(false);
@@ -19,6 +23,10 @@ public abstract class GameObject
             this.x=x;
             this.y=y;
     }
+     void setRectangle(){
+
+     };
+
     public Animation Draw()
     {
         return animation.GetAnimation();
@@ -100,5 +108,13 @@ public abstract class GameObject
     public int getFrameWidth()
     {
         return animation.getFrameWidth();
+    }
+    public boolean isTouched(Rectangle rectangle2)
+    {
+        return(rectangle.overlaps(rectangle2));
+    }
+
+    public Rectangle get_rectangle() {
+        return rectangle;
     }
 }

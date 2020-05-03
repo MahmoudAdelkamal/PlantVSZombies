@@ -1,5 +1,7 @@
 package GameObjects;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+
 public class SunFlower extends Plant
 {
     private Sun star;
@@ -13,7 +15,14 @@ public class SunFlower extends Plant
         star = new Sun(x,y);
         star.setTexture(new Texture(Constants.SunSheetPath));
         animation = new Animations(Constants.SunFlowerSheetPath,Constants.SunFlowerRows,Constants.SunFlowerColumns,0.05f);
+        setRectangle();
     }
+
+    @Override
+    void setRectangle() {
+        rectangle= new Rectangle(x,y,45,62);
+    }
+
     public void UpdateTime()
     {
         SunProductionTime++;

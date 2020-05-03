@@ -104,7 +104,7 @@ public class MainScreen implements Screen
                 {
                     if (gameObject instanceof PeaShooter) 
                         PeaShooting((Zombie) z,(PeaShooter) gameObject);
-                    if(gameObject.GetXindex()==z.GetXindex())
+                    if(z.isTouched(gameObject.get_rectangle()))
                     {
                         gameObject.setColliding(true);
                         gameObject.collide(elapsed);
@@ -141,7 +141,7 @@ public class MainScreen implements Screen
         while(bulletIterator.hasNext())
         {
             Bullet bullet = bulletIterator.next();
-            if(zombie.Getx()+60<=bullet.Getx() && zombie.GetXindex()+1==bullet.GetXindex())
+            if(zombie.isTouched(bullet.get_rectangle()))
             {
                 bulletIterator.remove();
                 zombie.isHit();
@@ -187,7 +187,7 @@ public class MainScreen implements Screen
                 it.remove();
             }
         }
-        System.out.println(score);
+        //System.out.println(score);
     }
     private void HandleMowers()
     {
@@ -199,25 +199,28 @@ public class MainScreen implements Screen
                 it.remove();
             mower.move();    
             mower.Draw(game.batch, elapsed, mower.Getx(), mower.Gety());
+            mower.setRectangle();
         }
     }
     private void HandleZombies()
     {
-        HandleCollision(plants);
-        HandleCollision(Mowers);
         for(Zombie z:zombies)
         {
             z.update(z.Getx() - z.getSpeed() , z.Gety());
             if(z.Getx()<=265)
                 game.Gameover();
             game.batch.draw((TextureRegion) z.Draw().getKeyFrame(elapsed, true), z.Getx(), z.Gety());
+            z.setRectangle();
         }
+        HandleCollision(plants);
+        HandleCollision(Mowers);
     }
     private void HandlePlants()
     {
         for(Plant p:plants)
         {
             game.batch.draw((TextureRegion) p.Draw().getKeyFrame(elapsed, true), p.Getx(), p.Gety());
+            p.setRectangle();
             if(p instanceof PeaShooter)
             {
                 Iterator<Bullet> bulletIterator=((PeaShooter) p).getBullet().iterator();
@@ -225,6 +228,7 @@ public class MainScreen implements Screen
                 {
                     Bullet bullet=bulletIterator.next();
                     game.batch.draw((TextureRegion) bullet.Draw().getKeyFrame(elapsed,true), bullet.Getx(), bullet.Gety());
+                    bullet.setRectangle();
                     bullet.move();
                     if(bullet.Getx() > Gdx.graphics.getWidth())
                         bulletIterator.remove();
