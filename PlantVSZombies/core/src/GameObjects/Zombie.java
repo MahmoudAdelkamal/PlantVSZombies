@@ -1,5 +1,5 @@
 package GameObjects;
-public abstract class Zombie extends GameObject
+public abstract class Zombie extends Creature
 {
     protected float speed;
     protected Animations WalkingAnimation;
@@ -12,17 +12,20 @@ public abstract class Zombie extends GameObject
     @Override
     public void update(float x, float y) 
     {
-        if (!isColliding())
+        if(!isColliding())
             super.update(x,y);
     }
-
     public void isHit()
     {
        HealthPoints--;
     }
+    public void Die()
+    {
+        HealthPoints = 0;
+    }
     public void UpdateAnimation()
     {
-        if(isColliding()==false)
+        if(!isColliding())
             animation = WalkingAnimation;
         else
             animation= EatingAnimation;
@@ -34,14 +37,13 @@ public abstract class Zombie extends GameObject
     @Override
     public void collide(float elapsed)
     {
-        if(GetCollisionTime()==0)
+        if(CollisionTime ==0)
         {
             SetCollisionTime(elapsed);
             setColliding(true);
         }
     }
-
-    @Override
+     @Override
     public void setColliding(boolean colliding)
     {
         super.setColliding(colliding);

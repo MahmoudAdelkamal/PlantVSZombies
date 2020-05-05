@@ -17,8 +17,6 @@ public abstract class GameObject
     protected Rectangle rectangle;
     public GameObject(float x,float y)
     {
-            setColliding(false);
-            setHealthPoints(5);
             CollisionTime=0;
             this.x=x;
             this.y=y;
@@ -44,32 +42,14 @@ public abstract class GameObject
     {
         return y;
     }
-    public void SetCollisionTime(float CollisionTime)
+    public Texture getTexture()
     {
-        this.CollisionTime=CollisionTime;
-    }
-    public float GetCollisionTime()
-    {
-        return CollisionTime;
-    }
-    public void SetHealthPoints(int HealthPoints)
-    {
-        this.setHealthPoints(HealthPoints);
-    }
-    public int GetHealthPoints()
-    {
-        return getHealthPoints();
-    }
-    public abstract void collide(float elapsed);
-
-    public Texture getTexture() {
         return texture;
     }
-
-    public void setTexture(Texture texture) {
+    public void setTexture(Texture texture) 
+    {
         this.texture = texture;
     }
-
     public int GetXindex()
     {
         int index=0;
@@ -84,37 +64,12 @@ public abstract class GameObject
             index++;
         return index;
     }
-    public boolean isColliding()
-    {
-        return isColliding;
-    }
-
-    public void setColliding(boolean colliding) 
-    {
-        isColliding = colliding;
-    }
-    public boolean IsDead()
-    {
-        return(getHealthPoints() ==0);
-    }
-    public int getHealthPoints()
-    {
-        return HealthPoints;
-    }
-    public void setHealthPoints(int healthPoints)
-    {
-        HealthPoints = healthPoints;
-    }
-    public int getFrameWidth()
-    {
-        return animation.getFrameWidth();
-    }
     public boolean isTouched(Rectangle rectangle2)
     {
         return(rectangle.overlaps(rectangle2));
     }
-
-    public Rectangle get_rectangle() {
+    public Rectangle GetRectangle()
+    {
         return rectangle;
     }
 }

@@ -1,5 +1,5 @@
 package GameObjects;
-public class Constants
+public interface Constants
 {
     // the Game map constants
     public static final int rowPosition[]={56,171,290,430,545};

@@ -2,7 +2,6 @@ package GameObjects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 public class Animations
 {
     private int rowFrames;

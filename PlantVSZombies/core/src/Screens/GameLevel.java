@@ -78,26 +78,71 @@ public class GameLevel implements Screen {
         HandleMowers();
         game.batch.end();
     }
-
-    private void HandleCollision(ArrayList object) {
+    private void HandleCollision(ArrayList object)
+    {
+        Iterator<Zombie> ZombieIterator = zombies.iterator();
+        while(ZombieIterator.hasNext())
+        {
+            Zombie zombie = ZombieIterator.next(); 
+            Iterator<GameObject> ObjectIterator = object.iterator();
+            while(ObjectIterator.hasNext())
+            {
+                 GameObject gameObject = ObjectIterator.next();
+                 if(gameObject instanceof PeaShooter && gameObject.GetYindex() == zombie.GetYindex())
+                     ((PeaShooter)(gameObject)).Shoot(elapsed,zombie);
+                 if(gameObject instanceof LawnMower && zombie.isTouched(gameObject.GetRectangle()) &&gameObject.GetYindex() == zombie.GetYindex())
+                 {
+                     ((LawnMower)(gameObject)).Activate();
+                      zombie.Die();
+                 }
+                 if(gameObject instanceof Plant && zombie.isTouched(gameObject.GetRectangle()) &&gameObject.GetYindex() == zombie.GetYindex())
+                 {
+                     ((Plant)(gameObject)).setColliding(true);
+                     ((Plant)(gameObject)).collide(elapsed);
+                      zombie.setColliding(true);
+                      zombie.collide(elapsed);
+                      if (((Plant)(gameObject)).IsDead())
+                      {
+                           ObjectIterator.remove();
+                           visited[gameObject.GetXindex()][gameObject.GetYindex()] = false;
+                           zombie.SetCollisionTime(0);
+                           zombie.setColliding(false);
+                      }
+                 }
+                 
+                 if(zombie.IsDead())
+                 {
+                     ZombieIterator.remove();
+                     if(gameObject instanceof Plant)
+                     {
+                        ((Plant)(gameObject)).SetCollisionTime(0);
+                        ((Plant)(gameObject)).setColliding(false);
+                     }
+                     break;
+                 }
+            }
+        }
+    }  
+    /*private void HandleCollision(ArrayList object) 
+    {
         Iterator<Zombie> ZombieIterator = zombies.iterator();
         while (ZombieIterator.hasNext()) {
-            GameObject z = ZombieIterator.next();
+            Zombie z = ZombieIterator.next();
             Iterator<GameObject> ObjectIterator = object.iterator();
-            if (plants.isEmpty() || (!object.isEmpty() && object.get(0) instanceof Plant))
-                z.setColliding(false);
             while (ObjectIterator.hasNext()) {
                 GameObject gameObject = ObjectIterator.next();
 
                 if (gameObject.GetYindex() == z.GetYindex()) {
-                    if (gameObject instanceof PeaShooter)
+                    if(gameObject instanceof PeaShooter)
                         PeaShooting((Zombie) z, (PeaShooter) gameObject);
-                    if (z.isTouched(gameObject.get_rectangle())) {
+                    if(z.isTouched(gameObject.get_rectangle()))
+                    {
                         gameObject.setColliding(true);
                         gameObject.collide(elapsed);
                         if (gameObject instanceof LawnMower)
                             z.setHealthPoints(0);
-                        else {
+                        else 
+                        {
                             z.setColliding(true);
                             z.collide(elapsed);
                             if (gameObject.IsDead()) {
@@ -108,7 +153,8 @@ public class GameLevel implements Screen {
                             }
                         }
                     }
-                    if (z.IsDead()) {
+                    if(z.IsDead())
+                    {
                         ZombieIterator.remove();
                         gameObject.SetCollisionTime(0);
                         gameObject.setColliding(false);
@@ -118,20 +164,7 @@ public class GameLevel implements Screen {
             }
         }
     }
-
-    private void PeaShooting(Zombie zombie, PeaShooter peaShooter) {
-
-        peaShooter.shoot(elapsed);
-        Iterator<Bullet> bulletIterator = peaShooter.getBullet().iterator();
-        while (bulletIterator.hasNext()) {
-            Bullet bullet = bulletIterator.next();
-            if (zombie.isTouched(bullet.get_rectangle())) {
-                bulletIterator.remove();
-                zombie.isHit();
-            }
-        }
-    }
-
+*/
     private void LoadStars() {
         Sun star = new Sun(Constants.columnPosition[new Random().nextInt(9)], 1250);
         star.setTexture(new Texture("star.png"));
@@ -179,8 +212,10 @@ public class GameLevel implements Screen {
         }
     }
 
-    private void HandleZombies() {
-        for (Zombie z : zombies) {
+    private void HandleZombies()
+    {
+        for (Zombie z : zombies)
+        {
             z.update(z.Getx() - z.getSpeed(), z.Gety());
             if (z.Getx() <= 265)
                 game.Gameover();
@@ -191,13 +226,17 @@ public class GameLevel implements Screen {
         HandleCollision(Mowers);
     }
 
-    private void HandlePlants() {
-        for (Plant p : plants) {
+    private void HandlePlants() 
+    {
+        for (Plant p : plants)
+        {
             game.batch.draw((TextureRegion) p.Draw().getKeyFrame(elapsed, true), p.Getx(), p.Gety());
             p.setRectangle();
-            if (p instanceof PeaShooter) {
+            if (p instanceof PeaShooter)
+            {
                 Iterator<Bullet> bulletIterator = ((PeaShooter) p).getBullet().iterator();
-                while (bulletIterator.hasNext()) {
+                while (bulletIterator.hasNext()) 
+                {
                     Bullet bullet = bulletIterator.next();
                     game.batch.draw((TextureRegion) bullet.Draw().getKeyFrame(elapsed, true), bullet.Getx(), bullet.Gety());
                     bullet.setRectangle();
@@ -205,7 +244,9 @@ public class GameLevel implements Screen {
                     if (bullet.Getx() > Gdx.graphics.getWidth())
                         bulletIterator.remove();
                 }
-            } else if (p instanceof SunFlower) {
+            }
+            else if(p instanceof SunFlower)
+            {
                 if (!stars.contains(((SunFlower) p).GetSun()))
                     ((SunFlower) p).UpdateTime();
                 if (((SunFlower) p).CanProduceSun() && !stars.contains(((SunFlower) p).GetSun())) {
@@ -216,31 +257,31 @@ public class GameLevel implements Screen {
         }
     }
 
-    private void SetNewPlant() {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            if (peashooterCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 100) {
+    private void SetNewPlant()
+    {
+        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+        {
+            if (peashooterCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 100)
                 PlacedPlant = new PeaShooter(0, 0);
-            }
-            if (sunflowerCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 50) {
+            if (sunflowerCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 50) 
                 PlacedPlant = new SunFlower(0, 0);
-            }
         }
-        if (PlacedPlant != null && Gdx.input.getX() > Constants.columnPosition[0] && Gdx.input.getY() > Constants.rowPosition[0]) {
+        if(PlacedPlant != null && Gdx.input.getX() > Constants.columnPosition[0] && Gdx.input.getY() > Constants.rowPosition[0])
+        {
             PlacedPlant.update(Gdx.input.getX(), 756 - Gdx.input.getY());
             PlacedPlant.update(Constants.columnPosition[PlacedPlant.GetXindex()], Constants.rowPosition[PlacedPlant.GetYindex()]);
             game.batch.setColor(Color.GRAY);
             game.batch.draw((TextureRegion) PlacedPlant.Draw().getKeyFrame(elapsed, true), PlacedPlant.Getx(), PlacedPlant.Gety());
             game.batch.setColor(Color.WHITE);
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && !visited[PlacedPlant.GetXindex()][PlacedPlant.GetYindex()]) {
-                if (PlacedPlant instanceof PeaShooter) score -= 100;
-                if (PlacedPlant instanceof SunFlower) score -= 50;
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && !visited[PlacedPlant.GetXindex()][PlacedPlant.GetYindex()]) 
+            {
+                score-=PlacedPlant.GetPrice();
                 plants.add(PlacedPlant);
                 visited[PlacedPlant.GetXindex()][PlacedPlant.GetYindex()] = true;
                 PlacedPlant = null;
             }
         }
     }
-
     @Override
     public void resize(int width, int height) {
 

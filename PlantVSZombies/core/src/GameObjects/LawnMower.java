@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-
 public class LawnMower extends GameObject
 {
     private boolean IsSetToDestroy;
@@ -35,6 +34,14 @@ public class LawnMower extends GameObject
                 IsSetToDestroy=true;
         }
     }
+    public boolean Activated()
+    {
+        return MoveAble;
+    }
+    public void Activate()
+    {
+        MoveAble = true;
+    }
     public boolean isSetToDestroy()
     {
         return IsSetToDestroy;
@@ -42,11 +49,6 @@ public class LawnMower extends GameObject
     public void Draw(SpriteBatch batch,float elapsed,float x,float y)
     {
         batch.draw((TextureRegion)Draw().getKeyFrame(elapsed,true),x,y);
-    }
-    @Override
-    public void collide(float elapsed)
-    {
-        MoveAble=true;
     }
     public void setRectangle()
     {

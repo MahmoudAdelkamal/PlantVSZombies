@@ -9,15 +9,15 @@ public class SunFlower extends Plant
     private float SunProductionTime;
     public SunFlower(float x,float y)
     {
-        super(x,y);
+        super(x,y,50);
         SunProductionTime = 0;
         canProduceSun = false;
+        HealthPoints = 5;
         star = new Sun(x,y);
         star.setTexture(new Texture(Constants.SunSheetPath));
         animation = new Animations(Constants.SunFlowerSheetPath,Constants.SunFlowerRows,Constants.SunFlowerColumns,0.05f);
         setRectangle();
     }
-
     @Override
     public void setRectangle()
     {
