@@ -1,6 +1,9 @@
 package GameObjects;
 public abstract class Creature extends GameObject
 { 
+    protected int HealthPoints;
+    protected boolean isColliding;
+    protected float CollisionTime;
     public Creature(float x, float y)
     {
         super(x, y);

@@ -17,6 +17,6 @@ public abstract class Plant extends Creature
         if(CollisionTime==0)
             CollisionTime=elapsed;
         else if(elapsed-GetCollisionTime()>=1)
-            setHealthPoints(getHealthPoints() - 1);
+            HealthPoints--;
     }
 }

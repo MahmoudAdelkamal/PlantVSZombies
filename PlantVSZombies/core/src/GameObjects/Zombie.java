@@ -37,7 +37,7 @@ public abstract class Zombie extends Creature
     @Override
     public void collide(float elapsed)
     {
-        if(CollisionTime ==0)
+        if(CollisionTime==0)
         {
             SetCollisionTime(elapsed);
             setColliding(true);

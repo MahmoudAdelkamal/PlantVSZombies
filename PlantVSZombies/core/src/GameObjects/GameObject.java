@@ -1,30 +1,23 @@
 package GameObjects;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
-
-
 public abstract class GameObject
 {
     protected Animations animation;
     protected Texture texture;
     protected float x;
     protected float y;
-    protected int HealthPoints;
-    protected boolean isColliding;
-    protected float CollisionTime;
     protected Rectangle rectangle;
     public GameObject(float x,float y)
     {
-            CollisionTime=0;
-            this.x=x;
-            this.y=y;
+         this.x=x;
+         this.y=y;
     }
-     public void setRectangle(){
+     public void setRectangle()
+     {
 
-     };
-
+     }
     public Animation Draw()
     {
         return animation.GetAnimation();
