@@ -1,4 +1,4 @@
-package GameObjects;
+package Utils;
 public interface Constants
 {
     // the Game map constants
@@ -40,4 +40,12 @@ public interface Constants
     public static final String MovingLawnMowerPath = "lawnmowerActivated.png";
     public static final int MovingLawnMowerRows = 1;
     public static final int MovingLawnMowerColumns = 13;
+    // Full health WallNut
+    public static final String FullWallNutSheet = "WallNutFull.png";
+    public static final int FullWallNutRows = 1;
+    public static final int FullWallNutColumns = 4;
+    // Half health WallNut
+    public static final String HalfWallNutSheet = "WallNutHalf.png";
+    public static final int HalfWallNutRows = 4;
+    public static final int HalfWallNutColumns = 1;
 }

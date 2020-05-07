@@ -1,4 +1,5 @@
 package GameObjects;
+import Utils.Constants;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.badlogic.gdx.*;
@@ -50,6 +51,7 @@ public class LawnMower extends GameObject
     {
         batch.draw((TextureRegion)Draw().getKeyFrame(elapsed,true),x,y);
     }
+    @Override
     public void setRectangle()
     {
         rectangle= new Rectangle(this.x,this.y,80,63);

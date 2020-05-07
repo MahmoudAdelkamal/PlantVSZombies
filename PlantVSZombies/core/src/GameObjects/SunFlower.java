@@ -1,4 +1,5 @@
 package GameObjects;
+import Utils.Constants;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -10,7 +11,7 @@ public class SunFlower extends Plant
     public SunFlower(float x,float y)
     {
         super(x,y,50);
-        SunProductionTime = 400;
+        SunProductionTime = 1000;
         canProduceSun = false;
         HealthPoints = 5;
         star = new Sun(x,y);
@@ -33,7 +34,7 @@ public class SunFlower extends Plant
     public void ResetSun()
     {
         canProduceSun = false;
-        SunProductionTime = 400;
+        SunProductionTime = 1000;
     }
     public boolean CanProduceSun()
     {

@@ -1,4 +1,5 @@
 package GameObjects;
+import Utils.Constants;
 import com.badlogic.gdx.math.Rectangle;
 public class Bullet extends GameObject
 {

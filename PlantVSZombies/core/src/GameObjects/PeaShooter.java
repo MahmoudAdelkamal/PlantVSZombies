@@ -1,4 +1,5 @@
 package GameObjects;
+import Utils.Constants;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,6 +44,7 @@ public class PeaShooter extends Plant
     {
         return bullets;
     }
+    @Override
     public void setRectangle()
     {
         rectangle= new Rectangle(this.x,this.y,48,63);

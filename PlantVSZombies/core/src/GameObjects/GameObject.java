@@ -1,4 +1,5 @@
 package GameObjects;
+import Utils.Constants;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,10 +15,7 @@ public abstract class GameObject
          this.x=x;
          this.y=y;
     }
-     public void setRectangle()
-     {
-
-     }
+    public abstract void setRectangle();
     public Animation Draw()
     {
         return animation.GetAnimation();

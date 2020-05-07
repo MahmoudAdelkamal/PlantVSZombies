@@ -1,4 +1,5 @@
 package GameObjects;
+import Utils.Constants;
 import com.badlogic.gdx.math.Rectangle;
 public class NormalZombie extends Zombie
 {    
@@ -11,6 +12,7 @@ public class NormalZombie extends Zombie
         animation = WalkingAnimation;
         setRectangle();
     }
+    @Override
     public void setRectangle()
     {
         rectangle= new Rectangle(this.x+52,this.y,69,111);
