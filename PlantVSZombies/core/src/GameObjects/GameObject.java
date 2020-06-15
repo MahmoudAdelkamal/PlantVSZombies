@@ -44,14 +44,14 @@ public abstract class GameObject
     public int GetXindex()
     {
         int index=0;
-        while (index < 8 && Constants.columnPosition[index + 1] < x)
+        while (index < 8 && x!=Constants.columnPosition[index] && Constants.columnPosition[index + 1] <= x)
             index++;
         return index;
     }
     public int GetYindex()
     {
         int index=0;
-        while (index < 4 && Constants.rowPosition[index + 1] <= y)
+        while (index < 4 && y!=Constants.rowPosition[index] && Constants.rowPosition[index + 1] <= y)
             index++;
         return index;
     }
