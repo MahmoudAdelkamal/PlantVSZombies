@@ -1,9 +1,10 @@
 package GameObjects;
 import Utils.Constants;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
-public class PeaShooter extends Plant
+public class PeaShooter extends Plant implements Attackable
 {
     private ArrayList<Bullet>bullets;
     private float shootTime;
@@ -16,7 +17,7 @@ public class PeaShooter extends Plant
         shootTime=0;
         setRectangle();
     }
-    public void AddBullet(float elapsed)
+    private void AddBullet(float elapsed)
     {
         if (shootTime==0)
             shootTime=elapsed;
@@ -26,19 +27,40 @@ public class PeaShooter extends Plant
             shootTime=0;
         }
     }
-    public void Shoot(float elapsed,Zombie zombie)
+    public void CheckBullets()
+    {
+        Iterator<Bullet>bulletIterator = bullets.iterator();
+        while(bulletIterator.hasNext()) 
+        {
+             Bullet bullet = bulletIterator.next();
+             bullet.setRectangle();
+             bullet.move();
+             if(bullet.Getx() > Gdx.graphics.getWidth())
+                bulletIterator.remove();
+        }
+    }
+    private boolean checkZombie(Zombie zombie)
+    {
+        return this.GetYindex()==zombie.GetYindex();
+    }
+    @Override
+    public void Attack(float elapsed,Creature c)
     {   
-          AddBullet(elapsed);
-          Iterator<Bullet>bulletIterator = bullets.iterator();
-          while(bulletIterator.hasNext())
-          {
-              Bullet bullet = bulletIterator.next();
-              if(zombie.isTouched(bullet.GetRectangle()))
-              {
-                  bulletIterator.remove();
-                  zombie.isHit();
-              }
-          }
+         Zombie zombie=(Zombie)(c);
+         if(checkZombie(zombie))
+         {
+               AddBullet(elapsed);
+               Iterator<Bullet>bulletIterator = bullets.iterator();
+               while(bulletIterator.hasNext())
+               {
+                    Bullet bullet = bulletIterator.next();
+                    if(zombie.isTouched(bullet.GetRectangle()))
+                    {
+                         bulletIterator.remove();
+                         zombie.isHit();
+                    }
+               }
+         }
     }
     public ArrayList<Bullet>getBullet()
     {

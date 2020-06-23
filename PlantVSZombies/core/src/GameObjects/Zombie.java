@@ -1,5 +1,8 @@
 package GameObjects;
-public abstract class Zombie extends Creature
+import Screens.GameLevel;
+import java.util.ArrayList;
+import java.util.Iterator;
+public abstract class Zombie extends Creature implements Attackable
 {
     protected float speed;
     protected Animations WalkingAnimation;
@@ -40,13 +43,36 @@ public abstract class Zombie extends Creature
         if(CollisionTime==0)
         {
             SetCollisionTime(elapsed);
-            setColliding(true);
+            setCollisionState(true);
         }
     }
-     @Override
-    public void setColliding(boolean colliding)
+    @Override
+    public void setCollisionState(boolean isColliding)
     {
-        super.setColliding(colliding);
+        super.setCollisionState(isColliding);
         UpdateAnimation();
     }
-}
+    @Override
+    public void Attack(float elapsed,Creature c)
+    {
+        Plant plant = (Plant)(c);
+        if(this.isTouched(plant.GetRectangle()) && this.GetYindex() == plant.GetYindex())
+        {
+              this.setCollisionState(true);
+              this.collide(elapsed);
+              plant.setCollisionState(true);
+              plant.collide(elapsed);
+              if(plant.IsDead())
+              {
+                    GameLevel.SetPlantedIndex(plant.GetXindex(),plant.GetYindex(),false);
+                    this.setCollisionState(false);
+                    this.SetCollisionTime(0);
+              }
+              if(this.IsDead())
+              {
+                    plant.SetCollisionTime(0);
+                    plant.setCollisionState(false);
+              }
+        }
+    }
+ }

@@ -3,8 +3,8 @@ import Utils.Constants;
 import com.badlogic.gdx.math.Rectangle;
 public class Bullet extends GameObject
 {
-    private float speed;
-    public Bullet(float x, float y,float speed)
+    private final float speed;
+    public Bullet(float x,float y,float speed)
     {
         super(x,y);
         this.speed=speed;
@@ -23,9 +23,5 @@ public class Bullet extends GameObject
     public float getSpeed()
     {
         return speed;
-    }
-    public void setSpeed(float speed)
-    {
-        this.speed = speed;
     }
 }

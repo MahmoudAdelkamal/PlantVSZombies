@@ -9,15 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-public class LawnMower extends GameObject
+public class LawnMower extends GameObject implements Attackable
 {
-    private boolean IsSetToDestroy;
     private boolean MoveAble;
     public LawnMower(float x, float y)
     {
         super(x,y);
         MoveAble=false;
-        IsSetToDestroy=false;
         animation = new Animations(Constants.StaticLawnMowerPath,Constants.StaticLawnMowerRows,Constants.StaticLawnMowerColumns,0.1f);
         setRectangle();
     }
@@ -31,21 +29,11 @@ public class LawnMower extends GameObject
         {
             update(x+5,y);
             UpdateAnimation();
-            if(x>1250)
-                IsSetToDestroy=true;
         }
-    }
-    public boolean Activated()
-    {
-        return MoveAble;
     }
     public void Activate()
     {
         MoveAble = true;
-    }
-    public boolean isSetToDestroy()
-    {
-        return IsSetToDestroy;
     }
     public void Draw(SpriteBatch batch,float elapsed,float x,float y)
     {
@@ -55,5 +43,15 @@ public class LawnMower extends GameObject
     public void setRectangle()
     {
         rectangle= new Rectangle(this.x,this.y,80,63);
+    }
+    @Override
+    public void Attack(float elapsed,Creature c)
+    {
+        Zombie zombie = (Zombie)(c);
+        if(zombie.isTouched(this.GetRectangle()) && this.GetYindex()== zombie.GetYindex())
+        {
+             Activate();
+             zombie.Die();
+        }
     }
 }

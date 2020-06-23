@@ -12,9 +12,9 @@ public abstract class Creature extends GameObject
     {
         return isColliding;
     }
-    public void setColliding(boolean colliding) 
+    public void setCollisionState(boolean isColliding) 
     {
-        isColliding = colliding;
+        this.isColliding = isColliding;
     }
     public boolean IsDead()
     {
