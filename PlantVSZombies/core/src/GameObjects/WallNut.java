@@ -7,7 +7,7 @@ public class WallNut extends Plant
     private Animations FullLifeAnimation;
     public WallNut(float x,float y)
     {
-        super(x,y,50);
+        super(x,y);
         FullLifeAnimation = new Animations(Constants.FullWallNutSheet,Constants.FullWallNutRows,Constants.FullWallNutColumns,0.1f);
         HalfLifeAnimation = new Animations(Constants.HalfWallNutSheet,Constants.HalfWallNutRows,Constants.HalfWallNutColumns,0.1f);
         animation = FullLifeAnimation;

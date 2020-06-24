@@ -7,6 +7,18 @@ public class Card
     private float x;
     private float y;
     private Texture texture;
+    private final int price;
+    public Card(float x,float y,String TexturePath,int price)
+    {
+        this.x=x;
+        this.y=y;
+        this.texture=new Texture(TexturePath);
+        this.price = price;
+    }
+    public int getPrice()
+    {
+        return price;
+    }
     public float getX() 
     {
         return x;
@@ -18,12 +30,6 @@ public class Card
     public Texture getTexture()
     {
         return texture;
-    }
-    public Card(float x,float y,String TexturePath)
-    {
-        this.x=x;
-        this.y=y;
-        this.texture=new Texture(TexturePath);
     }
     public boolean isTouched(int x,int height,int y)
     {

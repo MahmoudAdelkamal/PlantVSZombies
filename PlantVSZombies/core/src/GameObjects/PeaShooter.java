@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class PeaShooter extends Plant implements Attackable
 {
-    private ArrayList<Bullet>bullets;
-    private float shootTime;
+    protected ArrayList<Bullet>bullets;
+    protected float shootTime;
     public PeaShooter(float x,float y)
     {
-        super(x,y,100);
+        super(x,y);
         animation=new Animations(Constants.PeaShooterSheetPath,Constants.PeaShooterSheetRows,Constants.PeaShooterSheetColumns,0.1f);
         bullets = new ArrayList<Bullet>();
         HealthPoints = 5;
         shootTime=0;
         setRectangle();
     }
-    private void AddBullet(float elapsed)
+    public void AddBullet(float elapsed)
     {
         if (shootTime==0)
             shootTime=elapsed;
@@ -41,7 +41,7 @@ public class PeaShooter extends Plant implements Attackable
     }
     private boolean checkZombie(Zombie zombie)
     {
-        return this.GetYindex()==zombie.GetYindex();
+        return (this.GetYindex()==zombie.GetYindex() && this.Getx()<zombie.Getx());
     }
     @Override
     public void Attack(float elapsed,Creature c)

@@ -9,7 +9,7 @@ public class SunFlower extends Plant
     private float SunProductionTime;
     public SunFlower(float x,float y)
     {
-        super(x,y,50);
+        super(x,y);
         SunProductionTime = 1000;
         canProduceSun = false;
         HealthPoints = 5;

@@ -14,6 +14,10 @@ public interface Constants
     public static final int PeaShooterSheetRows = 4;
     public static final int PeaShooterSheetColumns = 6;
     public static final String PeaShooterSheetPath = "PeaSpriteSheet.png";
+    // Repeater
+    public static final int RepeaterSheetRows = 42;
+    public static final int RepeaterSheetColumns = 1;
+    public static final String RepeaterSheetPath = "RepeaterSpriteSheet.png";
     // Bullet
     public static final String BulletPath="Pea.png";
     // Normal Zombie

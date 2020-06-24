@@ -1,15 +1,9 @@
 package GameObjects;
 public abstract class Plant extends Creature
 {
-    protected final int Price;
-    public Plant(float x, float y,int Price) 
+    public Plant(float x, float y) 
     {
         super(x,y);
-        this.Price = Price; 
-    }
-    public int GetPrice()
-    {
-        return Price;
     }
     @Override
     public void collide(float elapsed)
