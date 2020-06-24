@@ -92,7 +92,7 @@ public class GameLevel implements Screen
     {
         for(int i = 1; i < 4; i++)
         {
-            NormalZombie newZombie = new NormalZombie(1170, Constants.rowPosition[i], 0.2f + (0.2f)* new Random().nextFloat());
+            PoleVaultingZombie newZombie = new PoleVaultingZombie(1170, Constants.rowPosition[i], 0.2f + (0.2f)* new Random().nextFloat());
             zombies.add(newZombie);
         }
     }
