@@ -45,7 +45,7 @@ public interface Constants
 
     public static final int WalkingPoleVaultingZombie_WithPole_Rows = 1;
     public static final int WalkingPoleVaultingZombie_WithPole_Columns = 10;
-    public static final String WalkingPoleVaultingZombie_WithPole_Path ="WalkingPoleVaultingZombie_WithPole.png";
+    public static final String WalkingPoleVaultingZombie_WithPole_Path ="WalkingPoleVaultingZombie_WithPole_edited.png";
 
     public static final int JumpingPoleVaultingZombieRows = 17;
     public static final int JumpingPoleVaultingZombieColumns = 1;

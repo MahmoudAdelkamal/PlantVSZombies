@@ -1,5 +1,6 @@
 package GameObjects;
 
+import Screens.GameLevel;
 import Utils.Constants;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -7,7 +8,8 @@ public class PoleVaultingZombie extends Zombie
 {
     protected Animations WalkingAnimation_WithPole_;
     protected Animations JumpingAnimation;
-    boolean jumped = false;
+    // 0 not jumped :: 1 jumping :: 2 jumped
+    protected int state = 0;
     public PoleVaultingZombie(float x, float y, float speed) {
         super(x, y, speed);
         HealthPoints = 4;
@@ -22,18 +24,20 @@ public class PoleVaultingZombie extends Zombie
 
     @Override
     public void UpdateAnimation() {
-        if (!jumped)
+        // not jumping
+        if (state==0)
         {
-            if(!isColliding())
-                animation = WalkingAnimation_WithPole_;
-            else
-            {
-                animation = JumpingAnimation;
-                jumped = true;
-            }
+            animation = WalkingAnimation_WithPole_;
         }
-        else
+        else if (state==1)
+        {
+            animation = JumpingAnimation;
+            //speed+=0.04f;
+        }
+        else {
+            //speed-=0.04f;
             super.UpdateAnimation();
+        }
     }
 
     @Override
@@ -44,7 +48,30 @@ public class PoleVaultingZombie extends Zombie
 
     @Override
     public void Attack(float elapsed, Creature c) {
-        if (jumped)
-            super.Attack(elapsed, c);
+
+        if (state==0)
+        {
+            Plant plant = (Plant)(c);
+            if(this.isTouched(plant.GetRectangle()) && this.GetYindex() == plant.GetYindex())
+            {
+                this.setCollisionState(true);
+                this.collide(elapsed);
+                // jumping
+                state=1;
+                speed+=1.5;
+            }
+        }
+        else if (state==1)
+        {
+            if (animation.isAnimationFinished(elapsed-CollisionTime))
+            {
+                state=2;
+                speed-=1.5;
+                setCollisionState(false);
+                SetCollisionTime(0);
+            }
+        }
+        else
+            super.Attack(elapsed,c);
     }
 }

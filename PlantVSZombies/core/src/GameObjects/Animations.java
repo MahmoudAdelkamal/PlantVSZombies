@@ -37,8 +37,8 @@ public class Animations
     {
         return animation;
     }
-    public int getFrameWidth()
-    {
-        return texture.getWidth()/columnFrames;
+    public boolean isAnimationFinished(float stateTime){
+        return animation.isAnimationFinished(stateTime);
     }
+
 }
