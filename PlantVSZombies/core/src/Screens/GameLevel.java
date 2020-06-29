@@ -196,7 +196,7 @@ public class GameLevel implements Screen
         }
         for(Plant plant:plants)
         {
-           game.batch.draw((TextureRegion) plant.Draw().getKeyFrame(elapsed, true), plant.Getx(), plant.Gety());
+           game.batch.draw((TextureRegion)plant.Draw().getKeyFrame(elapsed, true),plant.Getx(),plant.Gety());
            if(plant instanceof PeaShooter)
            {
                ArrayList<Bullet>bullets=((PeaShooter)(plant)).getBullet();

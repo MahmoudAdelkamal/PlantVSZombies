@@ -1,13 +1,15 @@
 package GameObjects;
 
 import Utils.Constants;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Repeater extends PeaShooter 
 {
     public Repeater(float x, float y) 
     {
         super(x,y);
-        animation = new Animations(Constants.RepeaterSheetPath,Constants.RepeaterSheetRows,Constants.RepeaterSheetColumns,0.06f);
+        animation = new Animations(Constants.RepeaterSheetPath,Constants.RepeaterSheetRows,Constants.RepeaterSheetColumns,0.07f);
     }  
     @Override
     public void AddBullet(float elapsed)

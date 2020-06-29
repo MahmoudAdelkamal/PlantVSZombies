@@ -1,5 +1,7 @@
 package GameObjects;
 import Utils.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 public class WallNut extends Plant
 {
@@ -26,4 +28,8 @@ public class WallNut extends Plant
     {
        rectangle= new Rectangle(this.x,this.y,48,63);
     }    
+    public void draw(SpriteBatch batch,float elapsed,float x,float y)
+    {
+        batch.draw((TextureRegion)Draw().getKeyFrame(elapsed,true),x,y);
+    }
 }

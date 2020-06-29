@@ -1,6 +1,8 @@
 package GameObjects;
 import Utils.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -46,7 +48,7 @@ public class PeaShooter extends Plant implements Attackable
     @Override
     public void Attack(float elapsed,Creature c)
     {   
-         Zombie zombie=(Zombie)(c);
+         Zombie zombie =(Zombie)(c);
          if(checkZombie(zombie))
          {
                AddBullet(elapsed);
