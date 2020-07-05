@@ -35,21 +35,21 @@ public interface Constants
     public static final int EatingConeZombieColumns = 11;
     public static final String EatingConeZombiePath ="EatingConeZombie.png";
     // PoleVaulting Zombie
-    public static final int WalkingPoleVaultingZombie_WithoutPole_Rows = 25;
-    public static final int WalkingPoleVaultingZombie_WithoutPole_Columns = 1;
-    public static final String WalkingPoleVaultingZombie_WithoutPole_Path = "WalkingPoleVaultingZombie_WithoutPole.png";
+    public static final int WalkingPoleVaultingZombie_WithoutPole_Rows = 5;
+    public static final int WalkingPoleVaultingZombie_WithoutPole_Columns = 5;
+    public static final String WalkingPoleVaultingZombie_WithoutPole_Path = "WalkingWithoutPole.png";
 
     public static final int EatingPoleVaultingZombieRows = 14;
     public static final int EatingPoleVaultingZombieColumns = 1;
     public static final String EatingPoleVaultingZombiePath ="EatingPoleVaultingZombie.png";
 
-    public static final int WalkingPoleVaultingZombie_WithPole_Rows = 1;
-    public static final int WalkingPoleVaultingZombie_WithPole_Columns = 10;
-    public static final String WalkingPoleVaultingZombie_WithPole_Path ="WalkingPoleVaultingZombie_WithPole_edited.png";
+    public static final int WalkingPoleVaultingZombie_WithPole_Rows = 10;
+    public static final int WalkingPoleVaultingZombie_WithPole_Columns = 1;
+    public static final String WalkingPoleVaultingZombie_WithPole_Path ="WalkingWithPole.png";
 
     public static final int JumpingPoleVaultingZombieRows = 17;
     public static final int JumpingPoleVaultingZombieColumns = 1;
-    public static final String JumpingPoleVaultingZombiePath ="JumpingPoleVaultingZombie.png";
+    public static final String JumpingPoleVaultingZombiePath ="jumpingg.png";
 
     // static Lawn Mower
     public static final String StaticLawnMowerPath = "StaticLawnMower.png";
