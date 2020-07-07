@@ -2,6 +2,8 @@ package GameObjects;
 
 import Screens.GameLevel;
 import Utils.Constants;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class PoleVaultingZombie extends Zombie
@@ -43,7 +45,11 @@ public class PoleVaultingZombie extends Zombie
     @Override
     public void setRectangle()
     {
-        rectangle= new Rectangle(this.x+52,this.y,69,111);
+        if (state==0)
+            rectangle= new Rectangle(this.x+160,this.y,72,130);
+        else
+            rectangle= new Rectangle(this.x+184,this.y,72,130);
+
     }
 
     @Override
@@ -75,8 +81,13 @@ public class PoleVaultingZombie extends Zombie
         else
             super.Attack(elapsed,c);
     }
-
-    public int getState() {
-        return state;
+    @Override
+    public void Draw(SpriteBatch batch, float elapsed)
+    {
+        if (state==1)
+            batch.draw((TextureRegion)Draw().getKeyFrame(elapsed-CollisionTime,false),x,y);
+        else
+            super.Draw(batch,elapsed);
     }
+
 }

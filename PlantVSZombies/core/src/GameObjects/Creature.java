@@ -20,14 +20,6 @@ public abstract class Creature extends GameObject
     {
         return(HealthPoints==0);
     }
-    public int getHealthPoints()
-    {
-        return HealthPoints;
-    }
-    public void setHealthPoints(int healthPoints)
-    {
-        HealthPoints = healthPoints;
-    }
     public void SetCollisionTime(float CollisionTime)
     {
         this.CollisionTime=CollisionTime;

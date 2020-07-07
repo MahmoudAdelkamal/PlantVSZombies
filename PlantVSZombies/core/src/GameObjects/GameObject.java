@@ -2,6 +2,8 @@ package GameObjects;
 import Utils.Constants;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 public abstract class GameObject
 {
@@ -54,6 +56,10 @@ public abstract class GameObject
         while (index < 4 && y!=Constants.rowPosition[index] && Constants.rowPosition[index + 1] <= y)
             index++;
         return index;
+    }
+    public void Draw(SpriteBatch batch, float elapsed)
+    {
+        batch.draw((TextureRegion)Draw().getKeyFrame(elapsed,true),x,y);
     }
     public boolean isTouched(Rectangle rectangle2)
     {

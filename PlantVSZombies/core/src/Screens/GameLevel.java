@@ -126,7 +126,7 @@ public class GameLevel implements Screen
             PlacedPlant.update(Gdx.input.getX(), 756 - Gdx.input.getY());
             PlacedPlant.update(Constants.columnPosition[PlacedPlant.GetXindex()], Constants.rowPosition[PlacedPlant.GetYindex()]);
             game.batch.setColor(Color.GRAY);
-            game.batch.draw((TextureRegion) PlacedPlant.Draw().getKeyFrame(elapsed, true), PlacedPlant.Getx(), PlacedPlant.Gety());
+            PlacedPlant.Draw(game.batch,elapsed);
             game.batch.setColor(Color.WHITE);
             if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && !IsPlanted[PlacedPlant.GetXindex()][PlacedPlant.GetYindex()]) 
             {
@@ -161,8 +161,8 @@ public class GameLevel implements Screen
                 zombie.Attack(elapsed,plant);
         }
         for(Zombie zombie:zombies)
-          game.batch.draw((TextureRegion) zombie.Draw().getKeyFrame(elapsed, true), zombie.Getx(), zombie.Gety());
-    
+          //game.batch.draw((TextureRegion) zombie.Draw().getKeyFrame(elapsed, true), zombie.Getx(), zombie.Gety());
+            zombie.Draw(game.batch,elapsed);
     }
     private void CheckStars(SunFlower sunflower)
     {
@@ -196,12 +196,12 @@ public class GameLevel implements Screen
         }
         for(Plant plant:plants)
         {
-           game.batch.draw((TextureRegion) plant.Draw().getKeyFrame(elapsed, true), plant.Getx(), plant.Gety());
+           plant.Draw(game.batch,elapsed);
            if(plant instanceof PeaShooter)
            {
                ArrayList<Bullet>bullets=((PeaShooter)(plant)).getBullet();
                for(Bullet bullet:bullets)
-                   game.batch.draw((TextureRegion) bullet.Draw().getKeyFrame(elapsed, true), bullet.Getx(), bullet.Gety());   
+                    bullet.Draw(game.batch,elapsed);
            }
         }
     }
@@ -219,7 +219,7 @@ public class GameLevel implements Screen
             mower.move();
         }
         for(LawnMower mower:Mowers)
-           mower.Draw(game.batch, elapsed, mower.Getx(), mower.Gety());
+           mower.Draw(game.batch, elapsed);
     }
     private void CheckStars()
     {
@@ -239,7 +239,7 @@ public class GameLevel implements Screen
             }
         }
         for(Sun star:stars)
-          game.batch.draw(star.getTexture(), star.Getx(), star.Gety());
+            star.Draw(game.batch,elapsed);
     }
     private void CheckCards()
     {

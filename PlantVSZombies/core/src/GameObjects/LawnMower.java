@@ -35,10 +35,6 @@ public class LawnMower extends GameObject implements Attackable
     {
         MoveAble = true;
     }
-    public void Draw(SpriteBatch batch,float elapsed,float x,float y)
-    {
-        batch.draw((TextureRegion)Draw().getKeyFrame(elapsed,true),x,y);
-    }
     @Override
     public void setRectangle()
     {
