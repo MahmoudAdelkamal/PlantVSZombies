@@ -151,7 +151,7 @@ public class GameLevel implements Screen
             Zombie zombie = ZombieIterator.next();
             if(zombie.IsDead())
                 ZombieIterator.remove();
-            if(zombie.Getx() <= 265)
+            if(zombie.isTouched(Constants.homeRectangle))
                 game.Gameover();
             zombie.update(zombie.Getx() - zombie.getSpeed(), zombie.Gety());
             zombie.setRectangle();

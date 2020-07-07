@@ -16,7 +16,7 @@ public class PoleVaultingZombie extends Zombie
         super(x, y, speed);
         HealthPoints = 4;
         WalkingAnimation_WithPole_ = new Animations(Constants.WalkingPoleVaultingZombie_WithPole_Path ,Constants.WalkingPoleVaultingZombie_WithPole_Rows,Constants.WalkingPoleVaultingZombie_WithPole_Columns ,0.1f);
-        JumpingAnimation = new Animations(Constants.JumpingPoleVaultingZombiePath ,Constants.JumpingPoleVaultingZombieRows ,Constants.JumpingPoleVaultingZombieColumns,0.2f);
+        JumpingAnimation = new Animations(Constants.JumpingPoleVaultingZombiePath ,Constants.JumpingPoleVaultingZombieRows ,Constants.JumpingPoleVaultingZombieColumns,0.1f);
 
         WalkingAnimation = new Animations(Constants.WalkingPoleVaultingZombie_WithoutPole_Path,Constants.WalkingPoleVaultingZombie_WithoutPole_Rows,Constants.WalkingPoleVaultingZombie_WithoutPole_Columns,0.1f);
         EatingAnimation = new Animations(Constants.EatingPoleVaultingZombiePath ,Constants.EatingPoleVaultingZombieRows,Constants.EatingPoleVaultingZombieColumns ,0.1f);
@@ -64,7 +64,7 @@ public class PoleVaultingZombie extends Zombie
                 this.collide(elapsed);
                 // jumping
                 state=1;
-                animation= new Animations(Constants.JumpingPoleVaultingZombiePath ,Constants.JumpingPoleVaultingZombieRows ,Constants.JumpingPoleVaultingZombieColumns,0.1f);
+                animation= JumpingAnimation;
                 speed+=1.5;
             }
         }

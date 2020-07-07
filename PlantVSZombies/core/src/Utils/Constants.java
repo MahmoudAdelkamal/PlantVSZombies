@@ -1,4 +1,6 @@
 package Utils;
+import com.badlogic.gdx.math.Rectangle;
+
 public interface Constants
 {
     // the Game map constants
@@ -69,4 +71,6 @@ public interface Constants
     public static final String HalfWallNutSheet = "WallNutHalf.png";
     public static final int HalfWallNutRows = 4;
     public static final int HalfWallNutColumns = 1;
+    // Home Area
+    public static final Rectangle homeRectangle= new Rectangle(0,0,265,111);
 }
