@@ -1,6 +1,7 @@
 package GameObjects;
 import Utils.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -72,5 +73,13 @@ public class PeaShooter extends Plant implements Attackable
     public void setRectangle()
     {
         rectangle= new Rectangle(this.x,this.y,48,63);
+    }
+
+    @Override
+    public void draw(SpriteBatch batch, float elapsed)
+    {
+        batch.draw((TextureRegion)getAnimation().getKeyFrame(elapsed,true),x,y);
+        for(Bullet bullet:bullets)
+            batch.draw((TextureRegion)bullet.getAnimation().getKeyFrame(elapsed,true),bullet.Getx(),bullet.Gety());
     }
 }

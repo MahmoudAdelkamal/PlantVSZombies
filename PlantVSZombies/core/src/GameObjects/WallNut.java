@@ -27,9 +27,10 @@ public class WallNut extends Plant
     public void setRectangle()
     {
        rectangle= new Rectangle(this.x,this.y,48,63);
-    }    
-    public void draw(SpriteBatch batch,float elapsed,float x,float y)
+    }
+    @Override
+    public void draw(SpriteBatch batch, float elapsed)
     {
-        batch.draw((TextureRegion)Draw().getKeyFrame(elapsed,true),x,y);
+        batch.draw((TextureRegion)getAnimation().getKeyFrame(elapsed,true),x,y);
     }
 }

@@ -35,10 +35,6 @@ public class LawnMower extends GameObject implements Attackable
     {
         MoveAble = true;
     }
-    public void Draw(SpriteBatch batch,float elapsed,float x,float y)
-    {
-        batch.draw((TextureRegion)Draw().getKeyFrame(elapsed,true),x,y);
-    }
     @Override
     public void setRectangle()
     {
@@ -53,5 +49,10 @@ public class LawnMower extends GameObject implements Attackable
              Activate();
              zombie.Die();
         }
+    }
+    @Override
+    public void draw(SpriteBatch batch, float elapsed)
+    {
+        batch.draw((TextureRegion)(getAnimation().getKeyFrame(elapsed, true)),x,y);
     }
 }

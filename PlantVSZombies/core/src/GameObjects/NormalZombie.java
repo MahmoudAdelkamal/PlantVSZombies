@@ -1,5 +1,7 @@
 package GameObjects;
 import Utils.Constants;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 public class NormalZombie extends Zombie
 {    
@@ -15,6 +17,11 @@ public class NormalZombie extends Zombie
     @Override
     public void setRectangle()
     {
-        rectangle= new Rectangle(this.x+52,this.y,69,111);
+        rectangle= new Rectangle(this.x+65,this.y,59,111);
+    }
+    @Override
+    public void draw(SpriteBatch batch, float elapsed)
+    {
+       batch.draw((TextureRegion)(animation.GetAnimation().getKeyFrame(elapsed, true)),x,y);
     }
 }

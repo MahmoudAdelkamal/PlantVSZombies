@@ -2,6 +2,7 @@ package GameObjects;
 import Utils.Constants;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 public abstract class GameObject
 {
@@ -16,7 +17,7 @@ public abstract class GameObject
          this.y=y;
     }
     public abstract void setRectangle();
-    public Animation Draw()
+    public Animation getAnimation()
     {
         return animation.GetAnimation();
     }
@@ -63,4 +64,5 @@ public abstract class GameObject
     {
         return rectangle;
     }
+    public abstract void draw(SpriteBatch batch,float elapsed);
 }

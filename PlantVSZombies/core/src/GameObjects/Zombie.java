@@ -56,19 +56,19 @@ public abstract class Zombie extends Creature implements Attackable
     public void Attack(float elapsed,Creature c)
     {
         Plant plant = (Plant)(c);
-        if(this.isTouched(plant.GetRectangle()) && this.GetYindex() == plant.GetYindex())
+        if(isTouched(plant.GetRectangle()) && GetYindex() == plant.GetYindex())
         {
-              this.setCollisionState(true);
-              this.collide(elapsed);
+              setCollisionState(true);
+              collide(elapsed);
               plant.setCollisionState(true);
               plant.collide(elapsed);
               if(plant.IsDead())
               {
                     GameLevel.SetPlantedIndex(plant.GetXindex(),plant.GetYindex(),false);
-                    this.setCollisionState(false);
-                    this.SetCollisionTime(0);
+                    setCollisionState(false);
+                    SetCollisionTime(0);
               }
-              if(this.IsDead())
+              if(IsDead())
               {
                     plant.SetCollisionTime(0);
                     plant.setCollisionState(false);

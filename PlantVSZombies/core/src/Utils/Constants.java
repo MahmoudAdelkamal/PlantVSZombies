@@ -52,4 +52,32 @@ public interface Constants
     public static final String HalfWallNutSheet = "WallNutHalf.png";
     public static final int HalfWallNutRows = 4;
     public static final int HalfWallNutColumns = 1;
+    // Jalapeno
+    public static final String JalapenoSheet = "JalapenoSheet.png";
+    public static final int JalapenoRow = 2;
+    public static final int JalapenoColumn = 4;
+    // fire
+    public static final String FireSheet = "FireSheet.png";
+    public static final int FireRows = 13;
+    public static final int FireColumns = 1;
+    // Cherry bomb
+    public static final String CherryBombSheet = "CherryBombSheet.png";
+    public static final int CherryBombRows = 7;
+    public static final int CherryBombColumns = 1;
+     // PoleVaulting Zombie
+    public static final int WalkingPoleVaultingZombie_WithoutPole_Rows = 5;
+    public static final int WalkingPoleVaultingZombie_WithoutPole_Columns = 5;
+    public static final String WalkingPoleVaultingZombie_WithoutPole_Path = "WalkingWithoutPole.png";
+
+    public static final int EatingPoleVaultingZombieRows = 14;
+    public static final int EatingPoleVaultingZombieColumns = 1;
+    public static final String EatingPoleVaultingZombiePath ="EatingPoleVaultingZombie.png";
+
+    public static final int WalkingPoleVaultingZombie_WithPole_Rows = 10;
+    public static final int WalkingPoleVaultingZombie_WithPole_Columns = 1;
+    public static final String WalkingPoleVaultingZombie_WithPole_Path ="WalkingWithPole.png";
+
+    public static final int JumpingPoleVaultingZombieRows = 17;
+    public static final int JumpingPoleVaultingZombieColumns = 1;
+    public static final String JumpingPoleVaultingZombiePath ="jumpingg.png";
 }

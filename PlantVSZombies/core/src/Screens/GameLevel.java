@@ -22,6 +22,7 @@ public class GameLevel implements Screen
     private Card peashooterCard;
     private Card WallNutCard;
     private Card RepeaterCard;
+    private Card CherryBombCard;
     private PlantsvsZombies game;
     private int wave;
     private float elapsed;
@@ -36,7 +37,7 @@ public class GameLevel implements Screen
     public GameLevel(PlantsvsZombies game)
     {
         wave = 1;
-        score = 350;
+        score = 1350;
         this.game = game;
         SunScorefont = new BitmapFont(Gdx.files.internal("Font.fnt"));
         SunScorefont.setColor(Color.WHITE);
@@ -51,6 +52,8 @@ public class GameLevel implements Screen
         peashooterCard = new Card(30, 450,"peashooterCard.png",100);
         WallNutCard = new Card(30,350,"wallnutCard.png",50);
         RepeaterCard = new Card(30,250,"Repeater.png",200);
+        CherryBombCard = new Card(30,150,"CherryBombCard.png",150);
+        elapsed = 0;
         AddMowers();
     }
     @Override
@@ -90,9 +93,9 @@ public class GameLevel implements Screen
     }
     private void AddZombies()
     {
-        for(int i = 1; i < 4; i++)
+        for(int i = 2; i<3; i++)
         {
-            NormalZombie newZombie = new NormalZombie(1170, Constants.rowPosition[i], 0.2f + (0.2f)* new Random().nextFloat());
+            NormalZombie newZombie = new NormalZombie(1170, Constants.rowPosition[i], 0.5f + (0.2f)* new Random().nextFloat());
             zombies.add(newZombie);
         }
     }
@@ -100,25 +103,30 @@ public class GameLevel implements Screen
     {
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
         {
-            if(peashooterCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 100)
+            if(peashooterCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 100 && PlacedPlant==null)
             {
                 PlacedPlant = new PeaShooter(0, 0);
                 score-=peashooterCard.getPrice();
             }
-            if(sunflowerCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 50) 
+            if(sunflowerCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 50  && PlacedPlant==null) 
             {
                 PlacedPlant = new SunFlower(0, 0);
                 score-=sunflowerCard.getPrice();
             }
-            if(WallNutCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 50)
+            if(WallNutCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >= 50  && PlacedPlant==null)
             {
                 PlacedPlant = new WallNut(0,0);
                 score-=WallNutCard.getPrice();
             }
-            if(RepeaterCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >=200)
+            if(RepeaterCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score >=200  && PlacedPlant==null)
             {
                 PlacedPlant = new Repeater(0,0);
                 score-=RepeaterCard.getPrice();
+            }
+            if(CherryBombCard.isTouched(Gdx.input.getX(), Gdx.graphics.getHeight(), Gdx.input.getY()) && score>=125  && PlacedPlant==null)
+            {
+                PlacedPlant = new CherryBomb(0,0);
+                score-=CherryBombCard.getPrice();
             }
         }
         if(PlacedPlant != null && Gdx.input.getX() > Constants.columnPosition[0] && Gdx.input.getY() > Constants.rowPosition[0])
@@ -126,7 +134,7 @@ public class GameLevel implements Screen
             PlacedPlant.update(Gdx.input.getX(), 756 - Gdx.input.getY());
             PlacedPlant.update(Constants.columnPosition[PlacedPlant.GetXindex()], Constants.rowPosition[PlacedPlant.GetYindex()]);
             game.batch.setColor(Color.GRAY);
-            game.batch.draw((TextureRegion) PlacedPlant.Draw().getKeyFrame(elapsed, true), PlacedPlant.Getx(), PlacedPlant.Gety());
+            game.batch.draw((TextureRegion) PlacedPlant.getAnimation().getKeyFrame(elapsed, true), PlacedPlant.Getx(), PlacedPlant.Gety());
             game.batch.setColor(Color.WHITE);
             if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && !IsPlanted[PlacedPlant.GetXindex()][PlacedPlant.GetYindex()]) 
             {
@@ -161,7 +169,7 @@ public class GameLevel implements Screen
                 zombie.Attack(elapsed,plant);
         }
         for(Zombie zombie:zombies)
-          game.batch.draw((TextureRegion) zombie.Draw().getKeyFrame(elapsed, true), zombie.Getx(), zombie.Gety());
+          game.batch.draw((TextureRegion) zombie.getAnimation().getKeyFrame(elapsed, true), zombie.Getx(), zombie.Gety());
     
     }
     private void CheckStars(SunFlower sunflower)
@@ -181,28 +189,35 @@ public class GameLevel implements Screen
         {
             Plant p = it.next();
             if(p.IsDead())
+            {
+                IsPlanted[p.GetXindex()][p.GetYindex()] = false;
                 it.remove();
+            }
             p.setRectangle();
             if(p instanceof PeaShooter)
             {
                 ((PeaShooter)(p)).CheckBullets();
                  for(Zombie zombie:zombies)
-                    ((PeaShooter)(p)).Attack(elapsed,zombie);
+                 {
+                     ((PeaShooter)(p)).Attack(elapsed,zombie);
+                 }  
             }
             else if(p instanceof SunFlower)
                 CheckStars(((SunFlower)(p)));
             else if(p instanceof WallNut)
                 ((WallNut)(p)).update();
+            else if(p instanceof CherryBomb)
+            {
+                ((CherryBomb)(p)).update(elapsed);
+                for(Zombie zombie:zombies)
+                {
+                  ((CherryBomb)(p)).Attack(elapsed,zombie);
+                }
+            }
         }
         for(Plant plant:plants)
         {
-           game.batch.draw((TextureRegion)plant.Draw().getKeyFrame(elapsed, true),plant.Getx(),plant.Gety());
-           if(plant instanceof PeaShooter)
-           {
-               ArrayList<Bullet>bullets=((PeaShooter)(plant)).getBullet();
-               for(Bullet bullet:bullets)
-                   game.batch.draw((TextureRegion) bullet.Draw().getKeyFrame(elapsed, true), bullet.Getx(), bullet.Gety());   
-           }
+           plant.draw(game.batch,elapsed);
         }
     }
     private void CheckMowers() 
@@ -219,7 +234,7 @@ public class GameLevel implements Screen
             mower.move();
         }
         for(LawnMower mower:Mowers)
-           mower.Draw(game.batch, elapsed, mower.Getx(), mower.Gety());
+           mower.draw(game.batch,elapsed);
     }
     private void CheckStars()
     {
@@ -247,6 +262,7 @@ public class GameLevel implements Screen
         game.batch.draw(peashooterCard.getTexture(), peashooterCard.getX(), peashooterCard.getY(), 105, 67);
         game.batch.draw(WallNutCard.getTexture(),WallNutCard.getX(),WallNutCard.getY(),105,67);
         game.batch.draw(RepeaterCard.getTexture(),RepeaterCard.getX(),RepeaterCard.getY(),105,67);
+        game.batch.draw(CherryBombCard.getTexture(),CherryBombCard.getX(),CherryBombCard.getY(),105,67);
     }
     public static void SetPlantedIndex(int x,int y,boolean planted)
     {

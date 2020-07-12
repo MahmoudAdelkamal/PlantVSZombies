@@ -16,6 +16,10 @@ public abstract class Creature extends GameObject
     {
         this.isColliding = isColliding;
     }
+    public boolean getCollisionState()
+    {
+        return isColliding;
+    }
     public boolean IsDead()
     {
         return(HealthPoints==0);

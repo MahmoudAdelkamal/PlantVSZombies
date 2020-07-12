@@ -1,5 +1,7 @@
 package GameObjects;
 import Utils.Constants;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 public class Bullet extends GameObject
 {
@@ -23,5 +25,10 @@ public class Bullet extends GameObject
     public float getSpeed()
     {
         return speed;
+    }
+    @Override
+    public void draw(SpriteBatch batch, float elapsed)
+    {
+        batch.draw((TextureRegion)(getAnimation().getKeyFrame(elapsed, true)),x,y);
     }
 }

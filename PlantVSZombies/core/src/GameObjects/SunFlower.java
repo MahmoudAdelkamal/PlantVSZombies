@@ -50,4 +50,10 @@ public class SunFlower extends Plant
     {
         return star;
     }
+
+    @Override
+    public void draw(SpriteBatch batch, float elapsed)
+    {
+        batch.draw((TextureRegion)getAnimation().getKeyFrame(elapsed,true),x,y);
+    }
 }
