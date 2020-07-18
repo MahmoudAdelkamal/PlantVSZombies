@@ -55,7 +55,7 @@ public abstract class Zombie extends Creature implements Attackable
     @Override
     public void Attack(float elapsed,Creature c)
     {
-        Plant plant = (Plant)(c);
+        Plant plant = (Plant)c;
         if(isTouched(plant.GetRectangle()) && GetYindex() == plant.GetYindex())
         {
               setCollisionState(true);

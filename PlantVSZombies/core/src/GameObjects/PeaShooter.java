@@ -44,7 +44,7 @@ public class PeaShooter extends Plant implements Attackable
     }
     private boolean checkZombie(Zombie zombie)
     {
-        return (this.GetYindex()==zombie.GetYindex() && this.Getx()<zombie.Getx());
+        return (GetYindex()==zombie.GetYindex() && Getx()<zombie.Getx());
     }
     @Override
     public void Attack(float elapsed,Creature c)
@@ -65,7 +65,7 @@ public class PeaShooter extends Plant implements Attackable
                }
          }
     }
-    public ArrayList<Bullet>getBullet()
+    public ArrayList<Bullet>getBullets()
     {
         return bullets;
     }
@@ -74,7 +74,6 @@ public class PeaShooter extends Plant implements Attackable
     {
         rectangle= new Rectangle(this.x,this.y,48,63);
     }
-
     @Override
     public void draw(SpriteBatch batch, float elapsed)
     {

@@ -12,16 +12,21 @@ import com.badlogic.gdx.math.Rectangle;
 public class LawnMower extends GameObject implements Attackable
 {
     private boolean MoveAble;
+    private Animations NormalAnimation;
+    private Animations MovingAnimation;
     public LawnMower(float x, float y)
     {
         super(x,y);
         MoveAble=false;
-        animation = new Animations(Constants.StaticLawnMowerPath,Constants.StaticLawnMowerRows,Constants.StaticLawnMowerColumns,0.1f);
+        NormalAnimation = new Animations(Constants.StaticLawnMowerPath,Constants.StaticLawnMowerRows,Constants.StaticLawnMowerColumns,0.1f); 
+        MovingAnimation = new Animations(Constants.MovingLawnMowerPath,Constants.MovingLawnMowerRows,Constants.MovingLawnMowerColumns,0.1f);
+        animation = NormalAnimation;
         setRectangle();
     }
     private void UpdateAnimation()
     {
-       animation = new Animations(Constants.MovingLawnMowerPath,Constants.MovingLawnMowerRows,Constants.MovingLawnMowerColumns,0.1f);
+       if(animation==NormalAnimation)
+          animation = MovingAnimation; 
     }
     public void move()
     {
@@ -44,7 +49,7 @@ public class LawnMower extends GameObject implements Attackable
     public void Attack(float elapsed,Creature c)
     {
         Zombie zombie = (Zombie)(c);
-        if(zombie.isTouched(this.GetRectangle()) && this.GetYindex()== zombie.GetYindex())
+        if(zombie.isTouched(this.GetRectangle()) && GetYindex()== zombie.GetYindex())
         {
              Activate();
              zombie.Die();

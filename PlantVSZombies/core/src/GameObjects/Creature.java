@@ -1,4 +1,6 @@
 package GameObjects;
+
+
 public abstract class Creature extends GameObject
 { 
     protected int HealthPoints;

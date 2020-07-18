@@ -25,7 +25,6 @@ public class SunFlower extends Plant
     {
         rectangle= new Rectangle(x,y,45,62);
     }
-
     public void UpdateTime()
     {
         SunProductionTime--;
@@ -50,7 +49,6 @@ public class SunFlower extends Plant
     {
         return star;
     }
-
     @Override
     public void draw(SpriteBatch batch, float elapsed)
     {

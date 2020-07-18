@@ -44,8 +44,8 @@ public abstract class GameObject
     }
     public int GetXindex()
     {
-        int index=0;
-        while (index < 8 && x!=Constants.columnPosition[index] && Constants.columnPosition[index + 1] <= x)
+        int index = 0;
+        while (index < 8 && Constants.columnPosition[index]!=x && Constants.columnPosition[index + 1] <= x)
             index++;
         return index;
     }

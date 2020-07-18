@@ -80,4 +80,14 @@ public interface Constants
     public static final int JumpingPoleVaultingZombieRows = 17;
     public static final int JumpingPoleVaultingZombieColumns = 1;
     public static final String JumpingPoleVaultingZombiePath ="jumpingg.png";
+    
+    // Normal chomper
+       public static final String NormalChomperPath = "ChomperNormalSheet.png";
+       public static final int NormalChomperRows = 13;
+       public static final int NormalChomperColumns = 1;
+    
+    // Attacking chomper
+       public static final String AttackingChomperPath = "Attack8.png";
+       public static final int AttackingChomperRows = 4;
+       public static final int AttackingChomperColumns = 1;
 }
