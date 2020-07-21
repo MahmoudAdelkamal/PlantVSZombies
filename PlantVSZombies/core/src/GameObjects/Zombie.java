@@ -1,81 +1,73 @@
 package GameObjects;
-import Screens.GameLevel;
-import java.util.ArrayList;
-import java.util.Iterator;
-public abstract class Zombie extends Creature implements Attackable
-{
+
+public abstract class Zombie extends Creature implements Attackable {
     protected float speed;
     protected Animations WalkingAnimation;
     protected Animations EatingAnimation;
-    public Zombie(float x, float y, float speed)
-    {
-        super(x,y);
+
+    public Zombie(float x, float y, float speed) {
+        super(x, y);
         this.speed = speed;
     }
+
     @Override
-    public void update(float x, float y) 
-    {
-        if(!isColliding())
-            super.update(x,y);
+    public void update(float x, float y) {
+        if (!isColliding())
+            super.update(x, y);
     }
-    public void BeEaten(){
-        HealthPoints=0;
-    }
-    public void isHit()
-    {
-       HealthPoints--;
-    }
-    public void Die()
-    {
+
+    public void BeEaten() {
         HealthPoints = 0;
     }
-    public void UpdateAnimation()
-    {
-        if(!isColliding())
+
+    public void isHit() {
+        HealthPoints--;
+    }
+
+    public void Die() {
+        HealthPoints = 0;
+    }
+
+    public void UpdateAnimation() {
+        if (!isColliding())
             animation = WalkingAnimation;
         else
-            animation= EatingAnimation;
+            animation = EatingAnimation;
     }
-    public float getSpeed()
-    {
+
+    public float getSpeed() {
         return speed;
     }
+
     @Override
-    public void collide(float elapsed)
-    {
-        if(CollisionTime==0)
-        {
+    public void collide(float elapsed) {
+        if (CollisionTime == 0) {
             SetCollisionTime(elapsed);
             setCollisionState(true);
         }
     }
 
     @Override
-    public void setCollisionState(boolean isColliding)
-    {
+    public void setCollisionState(boolean isColliding) {
         super.setCollisionState(isColliding);
         UpdateAnimation();
     }
+
     @Override
-    public void Attack(float elapsed,Creature c)
-    {
-        Plant plant = (Plant)c;
-        if(isTouched(plant.GetRectangle()) && GetYindex() == plant.GetYindex())
-        {
-              setCollisionState(true);
-              collide(elapsed);
-              plant.setCollisionState(true);
-              plant.collide(elapsed);
-              if(plant.IsDead())
-              {
-                    setCollisionState(false);
-                    SetCollisionTime(0);
-              }
-              if(IsDead())
-              {
-                    plant.SetCollisionTime(0);
-                    plant.setCollisionState(false);
-              }
+    public void Attack(float elapsed, Creature c) {
+        Plant plant = (Plant) c;
+        if (isTouched(plant.GetRectangle()) && GetYindex() == plant.GetYindex()) {
+            collide(elapsed);
+            plant.setCollisionState(true);
+            plant.collide(elapsed);
+            if (plant.IsDead()) {
+                setCollisionState(false);
+                SetCollisionTime(0);
+            }
+            if (IsDead()) {
+                plant.SetCollisionTime(0);
+                plant.setCollisionState(false);
+            }
         }
     }
- }
+}

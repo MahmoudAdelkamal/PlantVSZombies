@@ -24,4 +24,5 @@ public class ConeZombie extends Zombie
     {
         batch.draw((TextureRegion)(getAnimation().getKeyFrame(elapsed, true)),x,y);
     }
+
 }
