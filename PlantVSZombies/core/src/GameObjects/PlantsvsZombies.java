@@ -1,6 +1,7 @@
 package GameObjects;
 import Screens.GameOverScreen;
 import Screens.GameLevel;
+import Screens.MainMenu;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,12 +16,20 @@ public class PlantsvsZombies extends Game
         {
 	    batch = new SpriteBatch();
 	    img = new Texture("Frontyard.png");
-            setScreen(new GameLevel(this));
+            setScreen(new MainMenu(this));
         }
+        public void SurvivalMode()
+		{
+			setScreen(new GameLevel(this) );
+		}
         public void Gameover()
         {
             setScreen(new GameOverScreen(this));
         }
+        public void Menu()
+		{
+			setScreen(new MainMenu(this));
+		}
 	@Override
 	public void render () {
 	    super.render();

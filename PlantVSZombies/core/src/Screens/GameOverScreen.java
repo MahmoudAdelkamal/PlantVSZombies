@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class GameOverScreen implements Screen 
 {
     private PlantsvsZombies game;
+    private float elapsed;
     public Texture GameOverScreen;
     public GameOverScreen(PlantsvsZombies game)
     {
@@ -20,7 +21,10 @@ public class GameOverScreen implements Screen
     }
     @Override
     public void render(float delta) 
-    {   
+    {
+        elapsed+=delta;
+        if (elapsed>5)
+            game.Menu();
         Gdx.gl.glClearColor(0,0,0,0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();

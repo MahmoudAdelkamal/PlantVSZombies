@@ -18,6 +18,9 @@ public abstract class Zombie extends Creature implements Attackable
         if(!isColliding())
             super.update(x,y);
     }
+    public void BeEaten(){
+        HealthPoints=0;
+    }
     public void isHit()
     {
        HealthPoints--;
@@ -46,6 +49,7 @@ public abstract class Zombie extends Creature implements Attackable
             setCollisionState(true);
         }
     }
+
     @Override
     public void setCollisionState(boolean isColliding)
     {
@@ -64,7 +68,6 @@ public abstract class Zombie extends Creature implements Attackable
               plant.collide(elapsed);
               if(plant.IsDead())
               {
-                    GameLevel.SetPlantedIndex(plant.GetXindex(),plant.GetYindex(),false);
                     setCollisionState(false);
                     SetCollisionTime(0);
               }

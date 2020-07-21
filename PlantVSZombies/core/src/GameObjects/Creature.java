@@ -2,7 +2,11 @@ package GameObjects;
 
 
 public abstract class Creature extends GameObject
-{ 
+{
+    public int getHealthPoints() {
+        return HealthPoints;
+    }
+
     protected int HealthPoints;
     protected boolean isColliding;
     protected float CollisionTime;
@@ -18,21 +22,9 @@ public abstract class Creature extends GameObject
     {
         this.isColliding = isColliding;
     }
-    public boolean getCollisionState()
-    {
-        return isColliding;
-    }
     public boolean IsDead()
     {
         return(HealthPoints==0);
-    }
-    public int getHealthPoints()
-    {
-        return HealthPoints;
-    }
-    public void setHealthPoints(int healthPoints)
-    {
-        HealthPoints = healthPoints;
     }
     public void SetCollisionTime(float CollisionTime)
     {

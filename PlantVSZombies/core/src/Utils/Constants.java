@@ -1,9 +1,14 @@
 package Utils;
+
+import com.badlogic.gdx.math.Rectangle;
+
 public interface Constants
 {
     // the Game map constants
     public static final int rowPosition[]={56,171,290,430,545};
     public static final int columnPosition[]={400,500,596,693,781,880,972,1067,1161};
+    // Main Menu background
+    public static final String MenuBackground = "max2t.jpg";
     // sun
     public static final String SunSheetPath="star.png";
     // sunFlower
@@ -79,7 +84,7 @@ public interface Constants
 
     public static final int JumpingPoleVaultingZombieRows = 17;
     public static final int JumpingPoleVaultingZombieColumns = 1;
-    public static final String JumpingPoleVaultingZombiePath ="jumpingg.png";
+    public static final String JumpingPoleVaultingZombiePath ="jumpinggg.png";
     
     // Normal chomper
        public static final String NormalChomperPath = "ChomperNormalSheet.png";
@@ -90,4 +95,6 @@ public interface Constants
        public static final String AttackingChomperPath = "Attack8.png";
        public static final int AttackingChomperRows = 4;
        public static final int AttackingChomperColumns = 1;
+    // Home Area
+    public static final Rectangle homeRectangle= new Rectangle(0,0,265,111);
 }

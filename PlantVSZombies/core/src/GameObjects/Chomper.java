@@ -23,7 +23,7 @@ public class Chomper extends Plant implements Attackable
     @Override
     public void setRectangle()
     {
-       rectangle= new Rectangle(this.x,this.y,80,63);
+       rectangle= new Rectangle(this.x+20,this.y,70,63);
     }
     public void update(float elapsed)
     {
@@ -51,10 +51,10 @@ public class Chomper extends Plant implements Attackable
     public void Attack(float elapsed, Creature c)
     {
         Zombie zombie = (Zombie)c;
-        if(zombie.isTouched(GetRectangle()) && GetYindex()== zombie.GetYindex() && Getx()<=zombie.Getx())
+        if(zombie.isTouched(GetRectangle()) )
         {
             isAttacking = true;
-            zombie.Die();
+            zombie.BeEaten();
         }
     }    
 }

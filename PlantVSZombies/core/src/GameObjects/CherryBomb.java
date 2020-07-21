@@ -46,7 +46,8 @@ public class CherryBomb extends Plant implements Attackable
     public void Attack(float elapsed, Creature c)
     {
        Zombie zombie=(Zombie)c;
-       if(animation==fireAnimation && Math.abs(zombie.GetXindex()-GetXindex())<=1 && Math.abs(zombie.GetYindex()-GetYindex())<=1)
+       Rectangle ExplosionRectangle = new Rectangle(this.x-130,this.y-100,2*130,3*100);
+       if(animation==fireAnimation && ExplosionRectangle.overlaps(zombie.rectangle) /*Math.abs(zombie.GetXindex()-GetXindex())<=1 && Math.abs(zombie.GetYindex()-GetYindex())<=1*/)
             ((Zombie)(c)).Die();
     }    
     @Override

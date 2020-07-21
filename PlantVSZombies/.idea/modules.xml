@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/PlantVSZombies.iml" filepath="$PROJECT_DIR$/.idea/PlantVSZombies.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/PlantVSZombies.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/PlantVSZombies.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/PlantVSZombies.core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/PlantVSZombies.core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/PlantVSZombies.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/PlantVSZombies.core.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/PlantVSZombies.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/PlantVSZombies.desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/PlantVSZombies.desktop.main.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/PlantVSZombies.desktop.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/PlantVSZombies.desktop.test.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/PlantVSZombies.desktop.test.iml" />
+    </modules>
+  </component>
+</project>
