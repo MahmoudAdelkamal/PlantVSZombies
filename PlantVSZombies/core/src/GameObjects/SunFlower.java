@@ -14,7 +14,7 @@ public class SunFlower extends Plant
         super(x,y);
         SunProductionTime = 1000;
         canProduceSun = false;
-        HealthPoints = 5;
+        HealthPoints = 6;
         star = new Sun(x,y);
         star.setTexture(new Texture(Constants.SunSheetPath));
         animation = new Animations(Constants.SunFlowerSheetPath,Constants.SunFlowerRows,Constants.SunFlowerColumns,0.05f);

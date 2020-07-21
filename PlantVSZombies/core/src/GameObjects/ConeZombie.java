@@ -17,7 +17,7 @@ public class ConeZombie extends Zombie
     @Override
     public void setRectangle()
     {
-        rectangle = new Rectangle(this.x+52,this.y,69,111);
+        rectangle = new Rectangle(this.x+55,this.y,69,111);
     }
     @Override
     public void draw(SpriteBatch batch, float elapsed)

@@ -9,7 +9,8 @@ public class Repeater extends PeaShooter
     {
         super(x,y);
         animation = new Animations(Constants.RepeaterSheetPath,Constants.RepeaterSheetRows,Constants.RepeaterSheetColumns,0.07f);
-    }  
+        HealthPoints=6;
+    }
     @Override
     public void AddBullet(float elapsed)
     {

@@ -5,13 +5,7 @@ public abstract class Plant extends Creature {
         super(x, y);
     }
 
-    @Override
-    public void collide(float elapsed) {
-        if (CollisionTime == 0)
-            CollisionTime = elapsed;
-        else if (elapsed - GetCollisionTime() >= 2) {
-            HealthPoints--;
-            //CollisionTime = elapsed;
-        }
-    }
+
+
+
 }

@@ -1,6 +1,5 @@
 package GameObjects;
 
-import Screens.GameLevel;
 import Utils.Constants;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -63,8 +62,7 @@ public class PoleVaultingZombie extends Zombie
             Plant plant = (Plant)(c);
             if(this.isTouched(plant.GetRectangle()) && this.GetYindex() == plant.GetYindex())
             {
-                this.setCollisionState(true);
-                this.collide(elapsed);
+                this.collide(elapsed,plant);
                 // jumping
                 state=1;
                 animation= JumpingAnimation;

@@ -16,7 +16,7 @@ public class PeaShooter extends Plant implements Attackable
         super(x,y);
         animation=new Animations(Constants.PeaShooterSheetPath,Constants.PeaShooterSheetRows,Constants.PeaShooterSheetColumns,0.1f);
         bullets = new ArrayList<Bullet>();
-        HealthPoints = 5;
+        HealthPoints = 6;
         shootTime=0;
         setRectangle();
     }

@@ -13,12 +13,12 @@ public class WallNut extends Plant
         FullLifeAnimation = new Animations(Constants.FullWallNutSheet,Constants.FullWallNutRows,Constants.FullWallNutColumns,0.1f);
         HalfLifeAnimation = new Animations(Constants.HalfWallNutSheet,Constants.HalfWallNutRows,Constants.HalfWallNutColumns,0.1f);
         animation = FullLifeAnimation;
-        HealthPoints = 200;
+        HealthPoints = 72;
         setRectangle();
     }
     public void update()
     {
-        if(HealthPoints>=130)
+        if(HealthPoints>=41)
             animation = FullLifeAnimation;
         else
             animation = HalfLifeAnimation;
