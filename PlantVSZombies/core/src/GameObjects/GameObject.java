@@ -65,4 +65,8 @@ public abstract class GameObject
         return rectangle;
     }
     public abstract void draw(SpriteBatch batch,float elapsed);
+    protected void finalize()
+    {
+        System.gc();
+    }
 }

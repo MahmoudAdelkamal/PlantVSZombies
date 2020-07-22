@@ -31,7 +31,7 @@ public class GameLevel implements Screen {
 
     public GameLevel(PlantsvsZombies game) {
         wave = 1;
-        score = 5000;
+        score = 200;
         waveNumber = 2;
         this.game = game;
         SunScorefont = new BitmapFont(Gdx.files.internal("Font.fnt"));
@@ -56,11 +56,13 @@ public class GameLevel implements Screen {
     @Override
     public void render(float delta) {
         elapsed += delta;
-        if (elapsed >= wave * 40) {
+        if (elapsed >= wave * 40 && wave<=30) {
             wave++;
             AddZombies();
             AddStars();
         }
+        if (wave>30 && zombies.isEmpty())
+            game.Win();
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
