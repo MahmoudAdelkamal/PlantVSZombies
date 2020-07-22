@@ -96,5 +96,5 @@ public interface Constants
        public static final int AttackingChomperRows = 4;
        public static final int AttackingChomperColumns = 1;
     // Home Area
-    public static final Rectangle homeRectangle= new Rectangle(0,0,265,111);
+    public static final Rectangle homeRectangle= new Rectangle(0,0,265,756);
 }
