@@ -29,9 +29,6 @@ public abstract class Zombie extends Creature implements Attackable {
         HealthPoints = 0;
     }
 
-    public void isHit() {
-        HealthPoints--;
-    }
 
     public void Die() {
         HealthPoints = 0;
@@ -55,7 +52,7 @@ public abstract class Zombie extends Creature implements Attackable {
         }
         else if (elapsed - CollisionTime>=0.25f)
         {
-            plant.HealthPoints--;
+            plant.isHit();
             CollisionTime=elapsed;
         }
 

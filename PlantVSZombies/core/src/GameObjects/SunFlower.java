@@ -23,7 +23,7 @@ public class SunFlower extends Plant
     @Override
     public void setRectangle()
     {
-        rectangle= new Rectangle(x,y,45,62);
+        rectangle= new Rectangle(x+15,y,45,62);
     }
     public void UpdateTime()
     {

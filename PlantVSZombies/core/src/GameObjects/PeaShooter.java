@@ -72,7 +72,7 @@ public class PeaShooter extends Plant implements Attackable
     @Override
     public void setRectangle()
     {
-        rectangle= new Rectangle(this.x,this.y,48,63);
+        rectangle= new Rectangle(this.x+15,this.y,48,63);
     }
     @Override
     public void draw(SpriteBatch batch, float elapsed)

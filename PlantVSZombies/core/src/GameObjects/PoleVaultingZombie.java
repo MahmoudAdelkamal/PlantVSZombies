@@ -66,7 +66,7 @@ public class PoleVaultingZombie extends Zombie
                 // jumping
                 state=1;
                 animation= JumpingAnimation;
-                speed+=1.2f;
+                speed+=1f;
             }
         }
         else if (state==1)
@@ -74,7 +74,7 @@ public class PoleVaultingZombie extends Zombie
             if (animation.isAnimationFinished(elapsed-CollisionTime))
             {
                 state=2;
-                speed-=1.2f;
+                speed-=1f;
                 setCollisionState(false);
                 SetCollisionTime(0);
             }

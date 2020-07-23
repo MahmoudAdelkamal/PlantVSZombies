@@ -82,9 +82,9 @@ public class GameLevel implements Screen {
         Cards.add(new Card(30, 550, 105, 67, "sunflower.png", 50, new SunFlower(0, 0)));
         Cards.add(new Card(30, 450, 105, 67, "peashooterCard.png", 100, new PeaShooter(0, 0)));
         Cards.add(new Card(30, 350, 105, 67, "wallnutCard.png", 50, new WallNut(0, 0)));
-        Cards.add(new Card(30, 250, 105, 67, "Repeater.png", 200, new Repeater(0, 0)));
+        Cards.add(new Card(30, 250, 105, 67, "Repeater-edited.png", 150, new Repeater(0, 0)));
         Cards.add(new Card(30, 150, 105, 67, "CherryBombCard.png", 200, new CherryBomb(0, 0)));
-        Cards.add(new Card(10, 25, 140, 105, "card_chomper.png", 300, new Chomper(0, 0)));
+        Cards.add(new Card(10, 25, 140, 105, "card_chomper_edited.png", 250, new Chomper(0, 0)));
     }
 
     private void AddStars() {
